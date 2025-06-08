@@ -49,42 +49,56 @@
                 Es hora de <strong>reunir a los implicados</strong>. Indica el <strong>número de sospechosos</strong> e introduce los <strong>nombres</strong> para abrir el caso.
             </h3>
         </div>
-        
-        <div class="setup-control-group" style="margin-bottom: 15px;">
-            <label for="host-name-input">Tu Nombre (<strong>Organizador</strong>):</label>
-            <input class="player-name-box" id="host-name-input" placeholder="Nombre del Organizador" type="text"/>
-        </div>
 
-        <div class="setup-control-group" style="margin-bottom: 5px; display: flex; align-items: center;">
-            <input id="has-honoree-checkbox" style="margin-right: 8px; transform: scale(1.2);" type="checkbox"/>
-            <label class="font-normal" for="has-honoree-checkbox" style="font-weight:normal; text-transform: none; letter-spacing: normal;">¿Hay <strong>homenajead@</strong>?</label>
-        </div>
-        <div id="honorees-container" style="margin-bottom:15px;">
-            </div>
-        <button id="add-honoree-btn" style="display:none; margin-bottom: 15px; font-size: 0.9em; padding: 8px 15px;" type="button"><i class="fas fa-plus-circle"></i> Añadir Homenajeado/a</button>
-
-        <div class="setup-control-group">
-            <label for="player-count">Número de Jugadores: </label>
-            <div class="player-count-wrapper">
-                <button type="button" id="decrement-player-count" class="player-count-btn" aria-label="Disminuir número de jugadores">-</button>
-                <input id="player-count" max="20" min="8" type="number" value="8"/>
-                <button type="button" id="increment-player-count" class="player-count-btn" aria-label="Aumentar número de jugadores">+</button>
+        <div class="bloque bloque-2">
+            <div class="setup-control-group" style="margin-top: 20px; margin-bottom: 20px;">
+                <label for="event-date-input">🗓️ ¿<strong>Cuándo juegas</strong>?</label>
+                <input type="date" id="event-date-input" class="player-name-box" />
             </div>
         </div>
 
-        <div class="setup-control-group">
-            <label id="player-names-label">Nombres de los <strong>Jugadores</strong>:</label>
-            <div id="player-names-grid-container">
+        <div class="bloque bloque-3">
+            <div class="setup-control-group" style="margin-bottom: 15px;">
+                <label for="host-name-input">Tu Nombre (<strong>Organizador</strong>):</label>
+                <input class="player-name-box" id="host-name-input" placeholder="Nombre del Organizador" type="text"/>
+            </div>
+        </div>
+
+        <div class="bloque bloque-4">
+            <div class="setup-control-group" style="margin-bottom: 5px; display: flex; align-items: center;">
+                <span class="font-normal" style="font-weight:normal; text-transform: none; letter-spacing: normal; margin-right:8px;">¿Hay <strong>homenajead@</strong>?</span>
+                <div>
+                    <button type="button" id="honoree-yes" class="honoree-choice-btn">Sí</button>
+                    <button type="button" id="honoree-no" class="honoree-choice-btn">No</button>
                 </div>
+                <input id="has-honoree-checkbox" type="checkbox" style="display:none;"/>
+            </div>
+            <div id="honorees-container" style="margin-bottom:15px;"></div>
+            <button id="add-honoree-btn" style="display:none; margin-bottom: 15px; font-size: 0.9em; padding: 8px 15px;" type="button"><i class="fas fa-plus-circle"></i> Añadir Homenajeado/a</button>
         </div>
 
-        <div class="setup-control-group" style="margin-top: 20px; margin-bottom: 20px;">
-            <label for="event-date-input">🗓️ ¿<strong>Cuándo juegas</strong>?</label>
-            <input type="date" id="event-date-input" class="player-name-box" />
+        <div class="bloque bloque-5">
+            <div class="setup-control-group">
+                <label for="player-count">Número de Jugadores: </label>
+                <div class="player-count-wrapper">
+                    <button type="button" id="decrement-player-count" class="player-count-btn" aria-label="Disminuir número de jugadores">-</button>
+                    <input id="player-count" max="20" min="8" type="number" value="8"/>
+                    <button type="button" id="increment-player-count" class="player-count-btn" aria-label="Aumentar número de jugadores">+</button>
+                </div>
+            </div>
         </div>
 
-        <div style="text-align: center; margin-top: 20px;">
-            <button id="start-assignment"><i class="fas fa-folder-open start-assignment-icon"></i> Abrir Expediente del Caso</button>
+        <div class="bloque bloque-6">
+            <div class="setup-control-group">
+                <label id="player-names-label">Nombres de los <strong>Jugadores</strong>:</label>
+                <div id="player-names-grid-container"></div>
+            </div>
+        </div>
+
+        <div class="bloque bloque-7">
+            <div style="text-align: center; margin-top: 20px;">
+                <button id="start-assignment"><i class="fas fa-folder-open start-assignment-icon"></i> Abrir Expediente del Caso</button>
+            </div>
         </div>
         <p class="error-message" id="player-count-error" style="display:none;"></p>
     </div>
