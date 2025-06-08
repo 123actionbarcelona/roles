@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Asignador de Sospechosos - Intriga Años 20</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=Lora:wght@400;700&amp;family=Open+Sans:wght@300;400;600&amp;family=Special+Elite&amp;display=swap" rel="stylesheet"/>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer" rel="stylesheet" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" defer></script>
+        <link href="style.css?v=1.0" rel="stylesheet"/>
+</head>
+<body>
+  <!-- INTRO DETECTIVESCA -->
+  <div id="intro-detective">
+    <h1 id="typewriter-title">🕵️‍♂️ Archivo Confidencial: <strong>Testamento Collins</strong></h1>
+    <div class="intro-texto">
+      <i>"<strong>Archivo confidencial</strong> del caso Collins. <strong>No abrir</strong> sin autorización."</i><br><br>
+      <b>Departamento de Investigaciones Teatrales</b>
+    </div>
+    <label for="clave">🗝️ Clave de acceso:</label>
+    <input type="password" id="clave" placeholder="Introducir clave..." />
+    <button onclick="validarClave()">📂 Abrir Archivo</button>
+    <p id="mensaje-error" style="display:none;">❌ <strong>Clave incorrecta.</strong> Inténtelo de nuevo.</p>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container">
+    <div id="darkModeContainer">
+        <button id="darkModeToggleBtn">
+            <i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none;"></i>
+            <span class="toggle-text">Modo Noche</span>
+        </button>
+    </div>
+    <div id="toast-notification"><i class="fas"></i><span id="toast-message"></span></div>
+
+    <div class="dossier-style" id="setup-section">
+        <!-- ID AÑADIDO AQUÍ -->
+        <div class="initial-report-block" id="initial-report-target">
+            <p class="initial-report-title">
+                <strong>🕵️ INFORME INICIAL:</strong>
+            </p>
+            <h2 class="initial-report-main-event" id="intro-line-1-heading">
+                Ha ocurrido un <strong>crimen</strong> <span class="coffin-icon">⚰️</span> en la <strong>Mansión Collins</strong>.
+            </h2>
+            <h3 class="initial-report-instructions" id="intro-line-2-subheading">
+                Es hora de <strong>reunir a los implicados</strong>. Indica el <strong>número de sospechosos</strong> e introduce los <strong>nombres</strong> para abrir el caso.
+            </h3>
+        </div>
+        
+        <div class="setup-control-group" style="margin-bottom: 15px;">
+            <label for="host-name-input">Tu Nombre (<strong>Organizador</strong>):</label>
+            <input class="player-name-box" id="host-name-input" placeholder="Nombre del Organizador" type="text"/>
+        </div>
+
+        <div class="setup-control-group" style="margin-bottom: 5px; display: flex; align-items: center;">
+            <input id="has-honoree-checkbox" style="margin-right: 8px; transform: scale(1.2);" type="checkbox"/>
+            <label class="font-normal" for="has-honoree-checkbox" style="font-weight:normal; text-transform: none; letter-spacing: normal;">¿Hay <strong>homenajead@</strong>?</label>
+        </div>
+        <div id="honorees-container" style="margin-bottom:15px;">
+            </div>
+        <button id="add-honoree-btn" style="display:none; margin-bottom: 15px; font-size: 0.9em; padding: 8px 15px;" type="button"><i class="fas fa-plus-circle"></i> Añadir Homenajeado/a</button>
+
+        <div class="setup-control-group">
+            <label for="player-count">Número de Jugadores: </label>
+            <div class="player-count-wrapper">
+                <button type="button" id="decrement-player-count" class="player-count-btn" aria-label="Disminuir número de jugadores">-</button>
+                <input id="player-count" max="20" min="8" type="number" value="8"/>
+                <button type="button" id="increment-player-count" class="player-count-btn" aria-label="Aumentar número de jugadores">+</button>
+            </div>
+        </div>
+
+        <div class="setup-control-group">
+            <label id="player-names-label">Nombres de los <strong>Jugadores</strong>:</label>
+            <div id="player-names-grid-container">
+                </div>
+        </div>
+
+        <div class="setup-control-group" style="margin-top: 20px; margin-bottom: 20px;">
+            <label for="event-date-input">🗓️ ¿<strong>Cuándo juegas</strong>?</label>
+            <input type="date" id="event-date-input" class="player-name-box" />
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button id="start-assignment"><i class="fas fa-folder-open start-assignment-icon"></i> Abrir Expediente del Caso</button>
+        </div>
+        <p class="error-message" id="player-count-error" style="display:none;"></p>
+    </div>
+
+    <div class="hidden-section" id="main-content-area">
+        <div id="action-buttons-section" style="text-align: center; margin-bottom: 30px;">
+            <button id="back-to-setup-btn"><i class="fas fa-arrow-left"></i> Volver a Configuración</button>
+        </div>
+
+        <div class="folder-tab" id="guide-header-tab">
+          📂 <span><strong>Apertura del Expediente:</strong></span>
+        </div>
+        <div id="detective-guide-section">
+            <h4><i class="fas fa-user-secret"></i> <strong>Confidencial:</strong> Guía del Detective Jefe</h4>
+            <ol>
+                <li class="guide-step-personality">
+                    <i class="fas fa-comments guide-icon"></i>
+                    <span>Asigna cada <strong>sospechoso</strong> según la <strong>personalidad de los asistentes</strong>. Para ayudarte a decidir, considera estos <strong>perfiles generales</strong> que identifican a cada sospechoso:</span>
+                    <div class="guide-pills-wrapper">
+                        <span class="extroversion-pill extroversion-Extrovertido" style="cursor:help;" title="Muy expresivo, hablador, enérgico. Ideal para jugadores que disfrutan destacar y llevar la iniciativa.">
+                            🔥  <strong>EXTROVERTIDO</strong>
+                        </span>
+                        <span class="extroversion-pill extroversion-Introvertido" style="cursor:help;" title="Un personaje más reservado, introspectivo y calmado. Perfecto para jugadores que prefieren observar y actuar con sutileza.">
+                            🙈  <strong>INTROVERTIDO</strong>
+                        </span>
+                        <span class="extroversion-pill extroversion-Neutro" style="cursor:help;" title="Personaje camaleónico y adaptable, capaz de desenvolverse en diversas situaciones. Adecuado para jugadores versátiles.">
+                            🎭  <strong>CAMALEÓNICO</strong>
+                        </span>
+                    </div>
+                </li>
+                <li>
+                    <i class="fab fa-whatsapp guide-icon"></i>
+                    <span>Utiliza el botón
+                        <span class="guide-dummy-whatsapp-button">
+                            <img alt="WhatsApp" src="./Fotos_Personajes/whatapp-logo.WEBP"/>
+                            <strong>Compartir por WhatsApp</strong>
+                        </span>
+                    en cada ficha para enviar los <strong>detalles del sospechoso</strong> directamente al jugador asignado de forma <strong>confidencial</strong>.</span>
+                </li>
+                <li><i class="fas fa-print guide-icon"></i>Una vez completado el reparto, presiona el botón "<strong>Compartir / Guardar Panel (PDF)</strong>" para generar un PDF y envíanoslo al <strong>WhatsApp 687630364</strong> o al correo <strong>123actionbcn@gmail.com</strong></li>
+            </ol>
+            <div class="special-considerations">
+                <h5><i class="fas fa-lightbulb"></i> <strong>Significado de los iconos:</strong></h5>
+                <ul>
+                    <li>
+                        <span style="font-size: 1.3em;" title="Ideal para el/la homenajeado/a">🌟</span> <strong>Para el/la Homenajeado/a:</strong> sospechosos que tienen un <strong>rol más principal</strong>.
+                    </li>
+                    <li>
+                        <span style="font-size: 1.3em;" title="Apto para menores (+12 aprox, con supervisión)">🧸</span> <strong>Apto para Menores de edad:</strong> fáciles de entender y <strong>sin temática +18</strong>.
+                    </li>
+                    <li>
+                        <span style="font-size: 1.3em;" title="Ideal para jugadores mayores o novatos">👵🏻</span> <strong>Jugadores Mayores:</strong> fáciles de <strong>entender y representar</strong>.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="assignment-section" style="padding: 20px 0;">
+            <div class="character-columns-wrapper">
+                <div class="character-column" id="female-characters-column">
+                    <h3><span class="deco-line top"></span><i aria-hidden="true" class="fas fa-female"></i>Sospechosos Femeninos<span class="deco-line bottom"></span></h3>
+                    <div class="character-gallery-grid" id="female-characters-grid">
+                        </div>
+                </div>
+                <div class="character-column" id="male-characters-column">
+                    <h3><span class="deco-line top"></span><i aria-hidden="true" class="fas fa-male"></i><strong>Sospechosos Masculinos</strong><span class="deco-line bottom"></span></h3>
+                    <div class="character-gallery-grid" id="male-characters-grid">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="assignment-dashboard-section">
+            <div class="folder-tab">📂 <span><strong>Panel Detectivesco</strong></span></div>
+            <div class="table-responsive-wrapper">
+                <div id="assignment-table-container">
+                    <table>
+                        <thead><tr><th>Retrato</th><th><strong>Sospechoso</strong></th><th><strong>Jugador/a</strong></th><th><strong>Personalidad</strong></th></tr></thead>
+                        <tbody id="assignment-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="assignment-dashboard-buttons-container">
+                <button id="print-dashboard-btn"><i class="fas fa-share-alt"></i> Compartir / Guardar Panel (PDF)</button>
+            </div>
+        </div>
+    </div>
+  </div>
+<script src="script.js?v=1.0"></script></body>
+</html>
