@@ -397,14 +397,20 @@ button .fas, button .fab { margin-right: 8px; }
     background: rgba(30, 30, 30, 0.95);
 }
 
-#darkModeContainer {
-    position: absolute;
+.panel-controles {
+    position: fixed;
     top: 25px;
     right: 30px;
     z-index: 1050;
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.85);
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-#darkModeToggleBtn {
+#modo-noche {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -421,33 +427,33 @@ button .fas, button .fab { margin-right: 8px; }
     border: 1px solid var(--color-gold-medium, #c0a062);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-#darkModeToggleBtn .fas {
+#modo-noche .fas {
     transition: text-shadow 0.3s ease;
     font-size: 1em;
 }
-#darkModeToggleBtn .fa-moon {
+#modo-noche .fa-moon {
     text-shadow: 0 0 7px var(--color-gold-light);
 }
-#darkModeToggleBtn .fa-sun {
+#modo-noche .fa-sun {
     color: #f39c12;
     text-shadow: 0 0 10px #f39c12;
 }
-#darkModeToggleBtn .toggle-text {
+#modo-noche .toggle-text {
      margin-left: 8px;
      font-weight: 600;
 }
-#darkModeToggleBtn:hover {
+#modo-noche:hover {
     background-color: #383838;
     border-color: var(--color-gold-light);
     transform: scale(1.05);
 }
-:root.dark-mode #darkModeToggleBtn {
+:root.dark-mode #modo-noche {
     background-color: var(--color-cream-artdeco, #f5e8d5);
     color: var(--color-gold-dark, #8c703c);
     border: 1px solid var(--color-gold-dark, #8c703c);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-:root.dark-mode #darkModeToggleBtn:hover {
+:root.dark-mode #modo-noche:hover {
     background-color: #e1d7c1;
     border-color: var(--color-gold-dark);
 }
@@ -522,7 +528,7 @@ button .fas, button .fab { margin-right: 8px; }
     position: relative;
 }
 
-#back-to-setup-btn, #print-dashboard-btn, #load-config-btn, #add-honoree-btn {
+#volver-config, #load-config-btn, #add-honoree-btn {
     font-family: var(--font-special), monospace;
     background-color: #e8e0c9;
     color: #5d4c3c;
@@ -536,34 +542,71 @@ button .fas, button .fab { margin-right: 8px; }
     border-radius: 4px;
     background-image: linear-gradient(to bottom, #f8f2e0, #e8e0c9);
 }
-#back-to-setup-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
+#volver-config {
+    position: static;
 }
-#back-to-setup-btn:hover, #print-dashboard-btn:hover, #load-config-btn:hover, #add-honoree-btn:hover {
+#volver-config:hover, #load-config-btn:hover, #add-honoree-btn:hover {
     background-color: #dcd2ba;
     color: #4a3b2a;
     border-color: var(--color-gold-dark);
     transform: translateY(-2px) scale(1.02);
     box-shadow: 0 4px 8px rgba(0,0,0,0.18), inset 0px 0px 1px rgba(255,255,255,0.5);
 }
-#back-to-setup-btn:active, #print-dashboard-btn:active, #load-config-btn:active, #add-honoree-btn:active {
+#volver-config:active, #load-config-btn:active, #add-honoree-btn:active {
     transform: translateY(0px) scale(1);
     box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
 }
-:root.dark-mode #back-to-setup-btn, :root.dark-mode #print-dashboard-btn, :root.dark-mode #load-config-btn, :root.dark-mode #add-honoree-btn {
+:root.dark-mode #volver-config, :root.dark-mode #load-config-btn, :root.dark-mode #add-honoree-btn {
     background-color: #4a443b;
     color: var(--color-gold-light);
     border-color: var(--color-gold-dark);
     box-shadow: 2px 2px 4px rgba(0,0,0,0.3), inset 0px 0px 1px rgba(0,0,0,0.3);
     background-image: linear-gradient(to bottom, #5c564e, #4a443b);
 }
-:root.dark-mode #back-to-setup-btn:hover, :root.dark-mode #print-dashboard-btn:hover, :root.dark-mode #load-config-btn:hover, :root.dark-mode #add-honoree-btn:hover {
+:root.dark-mode #volver-config:hover, :root.dark-mode #load-config-btn:hover, :root.dark-mode #add-honoree-btn:hover {
     background-color: #5c564e;
     color: #fff;
     border-color: var(--color-gold-medium);
+}
+
+#assignment-dashboard-buttons-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.boton-panel-pdf {
+    font-family: var(--font-special), monospace;
+    background: #6D4C41;
+    border: 2px solid #4E342E;
+    color: var(--color-gold-pale);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    font-size: 1.15em;
+    padding: 14px 30px;
+    font-weight: bold;
+    border-radius: 5px 20px 5px 20px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.boton-panel-pdf:hover {
+    background: #5D4037;
+    border-color: #3E2723;
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.05);
+}
+.boton-panel-pdf:active {
+    transform: translateY(0) scale(1);
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2), inset 0 1px 3px rgba(0,0,0,0.1);
+}
+:root.dark-mode .boton-panel-pdf {
+    background: #563E34;
+    border-color: #3E2723;
+    color: var(--color-gold-light);
+}
+:root.dark-mode .boton-panel-pdf:hover {
+    background: #49332B;
+    border-color: #2c1b17;
 }
 
 /* ============================================= */
@@ -1365,6 +1408,7 @@ button .fas, button .fab { margin-right: 8px; }
 @media (max-width: 767px) {
     body { padding: 15px; }
     .container { padding: 20px; }
+    .panel-controles { flex-direction: column; }
     .character-gallery-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
     h1 { font-size: 2.2em; }
     .character-column h3 { font-size: 1.7em; padding: 15px 25px;}
@@ -1383,10 +1427,10 @@ button .fas, button .fab { margin-right: 8px; }
 @media (max-width: 480px) {
     body { padding: 10px; }
     .container { padding: 15px; }
-    #darkModeContainer { top: 15px; right: 15px; }
-    #darkModeToggleBtn { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%;}
-    #darkModeToggleBtn .toggle-text { display: none; }
-    #darkModeToggleBtn .fas { margin-right: 0; }
+    .panel-controles { top: 15px; right: 15px; flex-direction: column; }
+    #modo-noche { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%;}
+    #modo-noche .toggle-text { display: none; }
+    #modo-noche .fas { margin-right: 0; }
     h1 { font-size: 2em; }
     .character-column h3 { font-size: 1.5em; padding: 12px 20px;}
     .character-column h3::before, .character-column h3::after { width: 15px; }
@@ -1424,7 +1468,7 @@ button .fas, button .fab { margin-right: 8px; }
     .extroversion-Neutro { background-color: #f5f5f5 !important; color: #424242 !important; border-color: #757575 !important;}
     #setup-section, #main-content-area > #action-buttons-section, #main-content-area > #assignment-section > h2,
     #main-content-area > #assignment-section > .character-columns-wrapper, #detective-guide-section,
-    .character-card-actions button, .copy-feedback, #darkModeToggleBtn, #print-dashboard-btn,
+    .character-card-actions button, .copy-feedback, #modo-noche, #volver-config, #print-dashboard-btn,
     #email-summary-btn, .character-portrait-content > label[for^="player-"],
     .character-portrait-content .player-assignment-select, .character-portrait-content .player-assignment-input,
     .character-card-actions, .fixed-level-indicator, .special-icon,
