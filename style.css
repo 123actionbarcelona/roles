@@ -58,6 +58,8 @@
     --option-bg-even: #4a443b;
     --option-bg-hover: var(--color-gold-medium);
     --option-text-hover: var(--color-black-artdeco);
+
+    --victorian-border-color: #b08b4f;
 }
 
 :root.dark-mode {
@@ -87,26 +89,42 @@
     --option-bg-even: #2f2d28;
     --option-bg-hover: var(--color-gold-light);
     --option-text-hover: var(--color-black-artdeco);
+
+    --victorian-border-color: #8c703c;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
     scroll-behavior: smooth;
-    background: url('Fotos_Personajes/fondo_victoriano.WEBP') repeat fixed;
-    background-size: auto;
     background-color: #1a1a1a;
     background-blend-mode: multiply;
+    min-height: 100%;
 }
 
 body {
     font-family: var(--font-body);
     line-height: 1.7;
-    background: transparent;
+    background: url('Fotos_Personajes/fondo_victoriano.WEBP') repeat fixed;
+    background-size: cover;
+    background-color: #1a1a1a;
+    background-blend-mode: multiply;
+    min-height: 100vh;
+    position: relative;
     color: var(--color-text-dark);
     padding: 20px;
     overflow-x: hidden;
     transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    border: 15px solid var(--victorian-border-color);
+    box-sizing: border-box;
+    z-index: 1000;
 }
 
 .visually-hidden {
