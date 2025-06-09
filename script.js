@@ -1174,15 +1174,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const textoIntro = "🕵️‍♂️ Archivo Confidencial: Testamento Collins";
 let i = 0;
-const speed = 75;
+const speed = 100;
 
-function typeWriter() {
-  const el = document.getElementById("typewriter-title");
-  if (el && i < textoIntro.length) {
-    el.textContent += textoIntro.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
+function runTypewriterOnElement(el, txt, delay = 90) {
+  if (!el) return;
+  const text = txt || el.textContent;
+  el.textContent = "";
+  let idx = 0;
+  (function type() {
+    if (idx < text.length) {
+      el.textContent += text.charAt(idx);
+      idx++;
+      setTimeout(type, delay);
+    }
+  })();
+}
+
+
+function applyTypewriterEffects(container) {
+  if (!container) return;
+  const elements = container.querySelectorAll('.typewriter');
+  elements.forEach(el => {
+    runTypewriterOnElement(el, el.textContent, parseInt(el.dataset.typeSpeed) || 90);
+  });
 }
 
 function setupProgressiveFlow() {
@@ -1198,6 +1212,7 @@ function setupProgressiveFlow() {
       b.classList.remove('hidden-section');
       b.classList.add('visible-section');
       triggerGoldenGlow(b);
+      applyTypewriterEffects(b);
     }
   };
 
@@ -1217,7 +1232,7 @@ function setupProgressiveFlow() {
     });
   }
   if (hostInput) {
-    hostInput.addEventListener('input', () => {
+    hostInput.addEventListener('blur', () => {
       if (hostInput.value.trim().length > 0) showBloque(4);
     });
   }
@@ -1258,9 +1273,7 @@ function setupProgressiveFlow() {
 window.addEventListener("load", () => {
   const titleElement = document.getElementById("typewriter-title");
   if (titleElement) {
-    titleElement.textContent = '';
-    i = 0;
-    typeWriter();
+    runTypewriterOnElement(titleElement, textoIntro, speed);
   }
 });
 
