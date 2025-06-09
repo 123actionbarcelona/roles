@@ -508,6 +508,7 @@ button .fas, button .fab { margin-right: 8px; }
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+    position: relative;
 }
 
 #back-to-setup-btn, #print-dashboard-btn, #load-config-btn, #add-honoree-btn {
@@ -523,6 +524,12 @@ button .fas, button .fab { margin-right: 8px; }
     margin: 8px 4px;
     border-radius: 4px;
     background-image: linear-gradient(to bottom, #f8f2e0, #e8e0c9);
+}
+#back-to-setup-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
 }
 #back-to-setup-btn:hover, #print-dashboard-btn:hover, #load-config-btn:hover, #add-honoree-btn:hover {
     background-color: #dcd2ba;
@@ -905,6 +912,39 @@ button .fas, button .fab { margin-right: 8px; }
     box-shadow: inset 2px 2px 5px rgba(0,0,0,0.35);
 }
 .copy-char-btn-frame img { border-radius: 50%; width: 22px; height: 22px; }
+
+.boton-whatsapp {
+    background: #222;
+    color: var(--color-gold-light);
+    font-family: var(--font-special), monospace;
+    font-size: 0.95em;
+    border: 1px solid var(--color-gold-medium);
+    padding: 8px 15px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: none;
+    letter-spacing: normal;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset 1px 1px 3px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.boton-whatsapp:hover {
+    background: #333;
+    border-color: var(--color-gold-light);
+    transform: scale(1.02);
+    box-shadow: 3px 3px 7px rgba(0,0,0,0.4), inset 1px 1px 4px rgba(0,0,0,0.3);
+}
+.boton-whatsapp:active {
+    transform: scale(1);
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.35);
+}
+.boton-whatsapp img {
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+}
 
 /* ============================================= */
 /* Estilos Popovers de Información               */

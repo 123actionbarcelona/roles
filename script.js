@@ -553,7 +553,7 @@ function initializeApp(initialChars, initialPacks) {
                 popoverDataType = "single-kid";
             } else if (char.isSeniorFriendly) {
                 popoverDetails = specialIconDetails.isSeniorFriendly;
-                decorativeEmojis = `�🏻`;
+                decorativeEmojis = `👵🏻`;
                 popoverDataType = "single-senior";
             }
 
@@ -988,6 +988,7 @@ function initializeApp(initialChars, initialPacks) {
             setupCharacterSelection(playerCount);
             updateAllPlayerSelects();
             updateAssignmentDashboard();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Se sobreescribe el listener del botón de imprimir para añadir la lógica completa
