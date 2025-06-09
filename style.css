@@ -500,10 +500,12 @@ button .fas, button .fab { margin-right: 8px; }
 }
 
 .honoree-choice-btn {
-    margin-right: 8px;
+    margin: 0 4px;
     padding: 6px 15px;
     font-family: var(--font-body);
     cursor: pointer;
+    min-width: 60px;
+    text-align: center;
 }
 
 #action-buttons-section {
@@ -560,6 +562,52 @@ button .fas, button .fab { margin-right: 8px; }
     background-color: #5c564e;
     color: #fff;
     border-color: var(--color-gold-medium);
+}
+
+#assignment-dashboard-buttons-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.boton-panel-pdf {
+    font-family: var(--font-primary);
+    background: #6D4C41;
+    color: var(--color-gold-pale, #faf3e0);
+    border: 2px solid #4E342E;
+    padding: 14px 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.boton-panel-pdf:hover {
+    background: #5D4037;
+    border-color: #3E2723;
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.05);
+}
+
+.boton-panel-pdf:active {
+    transform: translateY(0) scale(1);
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+:root.dark-mode .boton-panel-pdf {
+    background: #563E34;
+    border-color: #3E2723;
+    color: var(--color-gold-light, #e8d8b0);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+:root.dark-mode .boton-panel-pdf:hover {
+    background: #49332B;
+    border-color: #2c1b17;
 }
 
 /* ============================================= */
