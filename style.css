@@ -398,7 +398,7 @@ button .fas, button .fab { margin-right: 8px; }
 }
 
 
-#darkModeToggleBtn {
+#darkModeToggleBtn, #darkModeToggleBtnSetup {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -415,33 +415,33 @@ button .fas, button .fab { margin-right: 8px; }
     border: 1px solid var(--color-gold-medium, #c0a062);
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
-#darkModeToggleBtn .fas {
+#darkModeToggleBtn .fas, #darkModeToggleBtnSetup .fas {
     transition: text-shadow 0.3s ease;
     font-size: 1em;
 }
-#darkModeToggleBtn .fa-moon {
+#darkModeToggleBtn .fa-moon, #darkModeToggleBtnSetup .fa-moon {
     text-shadow: 0 0 7px var(--color-gold-light);
 }
-#darkModeToggleBtn .fa-sun {
+#darkModeToggleBtn .fa-sun, #darkModeToggleBtnSetup .fa-sun {
     color: #f39c12;
     text-shadow: 0 0 10px #f39c12;
 }
-#darkModeToggleBtn .toggle-text {
+#darkModeToggleBtn .toggle-text, #darkModeToggleBtnSetup .toggle-text {
      margin-left: 8px;
      font-weight: 600;
 }
-#darkModeToggleBtn:hover {
+#darkModeToggleBtn:hover, #darkModeToggleBtnSetup:hover {
     background-color: #383838;
     border-color: var(--color-gold-light);
     transform: scale(1.05);
 }
-:root.dark-mode #darkModeToggleBtn {
+:root.dark-mode #darkModeToggleBtn, :root.dark-mode #darkModeToggleBtnSetup {
     background-color: var(--color-cream-artdeco, #f5e8d5);
     color: var(--color-gold-dark, #8c703c);
     border: 1px solid var(--color-gold-dark, #8c703c);
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-:root.dark-mode #darkModeToggleBtn:hover {
+:root.dark-mode #darkModeToggleBtn:hover, :root.dark-mode #darkModeToggleBtnSetup:hover {
     background-color: #e1d7c1;
     border-color: var(--color-gold-dark);
 }
@@ -517,6 +517,15 @@ button .fas, button .fab { margin-right: 8px; }
     gap: 10px;
     position: relative;
     width: 100%;
+}
+
+#setup-action-buttons {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
 }
 
 #back-to-setup-btn, #print-dashboard-btn, #load-config-btn, #add-honoree-btn {
@@ -1444,9 +1453,9 @@ button .fas, button .fab { margin-right: 8px; }
 @media (max-width: 480px) {
     body { padding: 10px; }
     .container { padding: 15px; }
-    #darkModeToggleBtn { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%;}
-    #darkModeToggleBtn .toggle-text { display: none; }
-    #darkModeToggleBtn .fas { margin-right: 0; }
+    #darkModeToggleBtn, #darkModeToggleBtnSetup { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%;}
+    #darkModeToggleBtn .toggle-text, #darkModeToggleBtnSetup .toggle-text { display: none; }
+    #darkModeToggleBtn .fas, #darkModeToggleBtnSetup .fas { margin-right: 0; }
     #back-to-setup-btn { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%; }
     #back-to-setup-btn .fas { margin-right: 0; }
     #action-buttons-section {
