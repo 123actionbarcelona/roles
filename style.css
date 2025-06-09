@@ -91,15 +91,18 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+    background: url('Fotos_Personajes/fondo_victoriano.WEBP') repeat fixed;
+    background-size: auto;
+    background-color: #1a1a1a;
+    background-blend-mode: multiply;
+}
 
 body {
     font-family: var(--font-body);
     line-height: 1.7;
-    background: url('Fotos_Personajes/fondo_victoriano.WEBP') repeat;
-    background-size: auto;
-    background-color: #1a1a1a;
-    background-blend-mode: multiply;
+    background: transparent;
     color: var(--color-text-dark);
     padding: 20px;
     overflow-x: hidden;
@@ -502,10 +505,41 @@ button .fas, button .fab { margin-right: 8px; }
 .honoree-choice-btn {
     margin: 0 4px;
     padding: 6px 15px;
-    font-family: var(--font-body);
+    font-family: var(--font-special), monospace;
     cursor: pointer;
     min-width: 60px;
     text-align: center;
+    background-color: #e8e0c9;
+    color: #5d4c3c;
+    border: 1px solid var(--color-gold-medium);
+    border-radius: var(--border-radius-soft);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.15), inset 0 0 1px rgba(255,255,255,0.6);
+    transition: var(--transition-smooth);
+}
+
+.honoree-choice-btn:hover {
+    background-color: #dcd2ba;
+    color: #4a3b2a;
+    border-color: var(--color-gold-dark);
+    transform: translateY(-2px);
+}
+
+.honoree-choice-btn:active {
+    transform: translateY(0);
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+:root.dark-mode .honoree-choice-btn {
+    background-color: #4a443b;
+    color: var(--color-gold-light);
+    border-color: var(--color-gold-dark);
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.3), inset 0 0 1px rgba(0,0,0,0.3);
+}
+
+:root.dark-mode .honoree-choice-btn:hover {
+    background-color: #5c564e;
+    color: #ffffff;
+    border-color: var(--color-gold-medium);
 }
 
 .honoree-choice-container { display: flex; gap: 10px; }
