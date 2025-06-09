@@ -510,6 +510,7 @@ button .fas, button .fab { margin-right: 8px; }
     margin-bottom: 24px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     position: relative;
     width: 100%;
@@ -531,6 +532,11 @@ button .fas, button .fab { margin-right: 8px; }
 }
 #back-to-setup-btn {
     position: static;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: var(--border-radius-soft);
 }
 #back-to-setup-btn:hover, #print-dashboard-btn:hover, #load-config-btn:hover, #add-honoree-btn:hover {
     background-color: #dcd2ba;
@@ -1376,6 +1382,8 @@ button .fas, button .fab { margin-right: 8px; }
     #darkModeToggleBtn { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%;}
     #darkModeToggleBtn .toggle-text { display: none; }
     #darkModeToggleBtn .fas { margin-right: 0; }
+    #back-to-setup-btn { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%; }
+    #back-to-setup-btn .fas { margin-right: 0; }
     #action-buttons-section { flex-direction: column; align-items: stretch; }
     .back-button-text { display: none; }
     h1 { font-size: 2em; }
