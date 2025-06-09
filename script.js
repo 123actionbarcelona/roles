@@ -287,7 +287,12 @@ function initializeApp(initialChars, initialPacks) {
             }
 
             domElements['player-count'].value = domElements['player-count'].value || "8";
-            generatePlayerNameInputs(parseInt(domElements['player-count'].value));
+
+            const existingNames = Array.from(domElements['player-names-grid-container'].querySelectorAll('input.player-name-box:not([readonly])'))
+                                       .map(input => input.value.trim())
+                                       .filter(name => name);
+
+            generatePlayerNameInputs(parseInt(domElements['player-count'].value), existingNames);
         }
 
         if(domElements['decrement-player-count'] && domElements['increment-player-count'] && domElements['player-count']) {
@@ -898,6 +903,9 @@ function initializeApp(initialChars, initialPacks) {
             domElements['main-content-area'].classList.add('hidden-section');
             domElements['main-content-area'].classList.remove('visible-section');
             domElements['setup-section'].style.display = 'block';
+
+            // Reinitialize setup so player name inputs regenerate with preserved data
+            initializeFreshSetupState();
 
             domElements['setup-section'].scrollIntoView({ behavior: 'smooth', block: 'start' });
 
