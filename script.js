@@ -111,7 +111,7 @@ function initializeApp(initialChars, initialPacks) {
             'player-count-error', 'setup-section', 'main-content-area',
             'assignment-table-body', 'female-characters-grid', 'male-characters-grid',
             'back-to-setup-btn',
-            'darkModeToggleBtn', 'darkModeContainer',
+            'darkModeToggleBtn',
             'print-dashboard-btn',
             'detective-guide-section', 'guide-header-tab',
             'assignment-dashboard-buttons-container',
@@ -136,7 +136,6 @@ function initializeApp(initialChars, initialPacks) {
         if (!allElementsFound) { console.error("ERROR FATAL: Elementos DOM esenciales no encontrados."); return; }
 
         const darkModeButton = domElements['darkModeToggleBtn'];
-        const darkModeContainer = domElements['darkModeContainer'];
         const toggleTextSpan = darkModeButton.querySelector('.toggle-text');
         const moonIcon = darkModeButton.querySelector('.fa-moon');
         const sunIcon = darkModeButton.querySelector('.fa-sun');
@@ -254,7 +253,6 @@ function initializeApp(initialChars, initialPacks) {
             domElements['main-content-area'].classList.add('hidden-section');
             domElements['main-content-area'].classList.remove('visible-section');
             if(domElements['player-count-error']) domElements['player-count-error'].style.display = 'none';
-            if (darkModeContainer) darkModeContainer.style.display = 'block';
 
             if(domElements['female-characters-grid']) domElements['female-characters-grid'].innerHTML = '';
             if(domElements['male-characters-grid']) domElements['male-characters-grid'].innerHTML = '';
@@ -894,7 +892,6 @@ function initializeApp(initialChars, initialPacks) {
             domElements['main-content-area'].classList.remove('visible-section');
             domElements['setup-section'].style.display = 'block';
 
-            if (darkModeContainer) darkModeContainer.style.display = 'block';
             domElements['setup-section'].scrollIntoView({ behavior: 'smooth', block: 'start' });
 
             showToastNotification('Has vuelto a la configuración. Los datos se conservan.', 'info');
@@ -979,7 +976,6 @@ function initializeApp(initialChars, initialPacks) {
             domElements['player-count-error'].style.display = 'none'; domElements['setup-section'].style.display = 'none';
             domElements['main-content-area'].classList.remove('hidden-section');
             domElements['main-content-area'].classList.add('visible-section');
-            if (darkModeContainer) darkModeContainer.style.display = 'block';
             if (domElements['action-buttons-section']) {
                  domElements['action-buttons-section'].scrollIntoView({ behavior: 'smooth', block: 'start' });
             } else if (domElements['guide-header-tab']) {
