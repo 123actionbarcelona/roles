@@ -508,6 +508,7 @@ button .fas, button .fab { margin-right: 8px; }
     text-align: center;
 }
 
+.honoree-choice-container { display: flex; gap: 10px; }
 #action-buttons-section {
     margin-bottom: 24px;
     display: flex;
@@ -570,15 +571,16 @@ button .fas, button .fab { margin-right: 8px; }
 }
 
 .boton-panel-pdf {
-    font-family: var(--font-primary);
+    font-family: 'Special Elite', monospace;
     background: #6D4C41;
     color: var(--color-gold-pale, #faf3e0);
     border: 2px solid #4E342E;
-    padding: 14px 32px;
+    padding: 12px 25px;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    border-radius: 8px;
+    font-size: 1.1em;
+    letter-spacing: 1.5px;
+    border-radius: 5px 20px 5px 20px;
     box-shadow: 2px 2px 4px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
     display: inline-flex;
     align-items: center;
@@ -1440,6 +1442,7 @@ button .fas, button .fab { margin-right: 8px; }
     }
     .back-button-text { display: none; }
     h1 { font-size: 2em; }
+    .honoree-choice-container { gap: 12px; }
     .character-column h3 { font-size: 1.5em; padding: 12px 20px;}
     .character-column h3::before, .character-column h3::after { width: 15px; }
     .character-portrait-image, .character-portrait-image-placeholder { height: 200px; }
