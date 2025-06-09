@@ -193,50 +193,10 @@ function initializeApp(initialChars, initialPacks) {
                     Array.from(domElements['player-names-grid-container'].querySelectorAll('input.player-name-box:not([readonly])')).map(ip => ip.value)
                  );
             });
-            domElements['host-name-input'].addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    if (domElements['has-honoree-checkbox']) {
-                        domElements['has-honoree-checkbox'].focus();
-                    } else if (domElements['event-date-input']) {
-                        domElements['event-date-input'].focus();
-                    } else {
-                         const firstPlayerInput = domElements['player-names-grid-container'].querySelector('input.player-name-box:not([readonly])');
-                        if (firstPlayerInput) {
-                            firstPlayerInput.focus();
-                        } else if (domElements['player-count']) {
-                            domElements['player-count'].focus();
-                        }
-                    }
-                }
-            });
         }
         if (domElements['event-date-input']) {
             domElements['event-date-input'].addEventListener('change', () => {
                 eventDateValue = domElements['event-date-input'].value;
-            });
-             domElements['event-date-input'].addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                     const hasHonoreeChecked = domElements['has-honoree-checkbox'] ? domElements['has-honoree-checkbox'].checked : false;
-                    let nextFocusElement = null;
-
-                    if (hasHonoreeChecked) {
-                        nextFocusElement = domElements['honorees-container'].querySelector('.honoree-name-input');
-                         if (!nextFocusElement && domElements['add-honoree-btn'] && domElements['add-honoree-btn'].style.display !== 'none') {
-                            nextFocusElement = domElements['add-honoree-btn'];
-                        }
-                    }
-
-                    if (!nextFocusElement) {
-                        nextFocusElement = domElements['player-count'];
-                    }
-
-
-                    if (nextFocusElement) {
-                        nextFocusElement.focus();
-                    }
-                }
             });
         }
 
@@ -1215,10 +1175,35 @@ function setupProgressiveFlow() {
     dateInput.addEventListener('change', () => {
       if (dateInput.value) showBloque(3);
     });
+    dateInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        showBloque(3);
+        if (hostInput) hostInput.focus();
+      }
+    });
   }
   if (hostInput) {
     hostInput.addEventListener('input', () => {
       if (hostInput.value.trim().length > 0) showBloque(4);
+    });
+    hostInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        showBloque(4);
+        if (honChk) {
+          honChk.focus();
+        } else if (dateInput) {
+          dateInput.focus();
+        } else {
+          const firstPlayerInput = namesContainer?.querySelector('input.player-name-box:not([readonly])');
+          if (firstPlayerInput) {
+            firstPlayerInput.focus();
+          } else if (playerCountInput) {
+            playerCountInput.focus();
+          }
+        }
+      }
     });
   }
 
