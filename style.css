@@ -501,6 +501,17 @@ button .fas, button .fab { margin-right: 8px; }
     animation: fadeInSlideUpGlobal 0.6s ease-out forwards;
 }
 
+.bloque {
+    margin-bottom: 20px;
+}
+
+.honoree-choice-btn {
+    margin-right: 8px;
+    padding: 6px 15px;
+    font-family: var(--font-body);
+    cursor: pointer;
+}
+
 #action-buttons-section {
     text-align: center;
     margin-bottom: 30px;
