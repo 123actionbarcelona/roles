@@ -28,12 +28,6 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="container">
-    <div id="darkModeContainer">
-        <button id="darkModeToggleBtn">
-            <i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none;"></i>
-            <span class="toggle-text">Modo Noche</span>
-        </button>
-    </div>
     <div id="toast-notification"><i class="fas"></i><span id="toast-message"></span></div>
 
     <div class="dossier-style" id="setup-section">
@@ -104,8 +98,12 @@
     </div>
 
     <div class="hidden-section" id="main-content-area">
-        <div id="action-buttons-section" style="text-align: center; margin-bottom: 30px;">
-            <button id="back-to-setup-btn"><i class="fas fa-arrow-left"></i> Volver a Configuración</button>
+        <div id="action-buttons-section">
+            <button id="back-to-setup-btn"><i class="fas fa-arrow-left"></i> <span class="back-button-text">Volver a Configuración</span></button>
+            <button id="darkModeToggleBtn">
+                <i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none;"></i>
+                <span class="toggle-text">Modo Noche</span>
+            </button>
         </div>
 
         <div class="folder-tab" id="guide-header-tab">

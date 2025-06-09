@@ -397,12 +397,6 @@ button .fas, button .fab { margin-right: 8px; }
     background: rgba(30, 30, 30, 0.95);
 }
 
-#darkModeContainer {
-    position: absolute;
-    top: 25px;
-    right: 30px;
-    z-index: 1050;
-}
 
 #darkModeToggleBtn {
     display: inline-flex;
@@ -513,13 +507,12 @@ button .fas, button .fab { margin-right: 8px; }
 }
 
 #action-buttons-section {
-    text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
     position: relative;
+    width: 100%;
 }
 
 #back-to-setup-btn, #print-dashboard-btn, #load-config-btn, #add-honoree-btn {
@@ -537,10 +530,7 @@ button .fas, button .fab { margin-right: 8px; }
     background-image: linear-gradient(to bottom, #f8f2e0, #e8e0c9);
 }
 #back-to-setup-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
+    position: static;
 }
 #back-to-setup-btn:hover, #print-dashboard-btn:hover, #load-config-btn:hover, #add-honoree-btn:hover {
     background-color: #dcd2ba;
@@ -1383,10 +1373,11 @@ button .fas, button .fab { margin-right: 8px; }
 @media (max-width: 480px) {
     body { padding: 10px; }
     .container { padding: 15px; }
-    #darkModeContainer { top: 15px; right: 15px; }
     #darkModeToggleBtn { width: 36px; height: 36px; padding: 0; font-size:1em; border-radius: 50%;}
     #darkModeToggleBtn .toggle-text { display: none; }
     #darkModeToggleBtn .fas { margin-right: 0; }
+    #action-buttons-section { flex-direction: column; align-items: stretch; }
+    .back-button-text { display: none; }
     h1 { font-size: 2em; }
     .character-column h3 { font-size: 1.5em; padding: 12px 20px;}
     .character-column h3::before, .character-column h3::after { width: 15px; }
