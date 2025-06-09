@@ -28,12 +28,6 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="container">
-    <div id="darkModeContainer">
-        <button id="darkModeToggleBtn">
-            <i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none;"></i>
-            <span class="toggle-text">Modo Noche</span>
-        </button>
-    </div>
     <div id="toast-notification"><i class="fas"></i><span id="toast-message"></span></div>
 
     <div class="dossier-style" id="setup-section">
@@ -67,7 +61,7 @@
         <div class="bloque bloque-4">
             <div class="setup-control-group" style="margin-bottom: 5px; display: flex; align-items: center;">
                 <span class="font-normal" style="font-weight:normal; text-transform: none; letter-spacing: normal; margin-right:8px;">¿Hay <strong>homenajead@</strong>?</span>
-                <div>
+                <div class="honoree-choice-container">
                     <button type="button" id="honoree-yes" class="honoree-choice-btn">Sí</button>
                     <button type="button" id="honoree-no" class="honoree-choice-btn">No</button>
                 </div>
@@ -104,8 +98,12 @@
     </div>
 
     <div class="hidden-section" id="main-content-area">
-        <div id="action-buttons-section" style="text-align: center; margin-bottom: 30px;">
-            <button id="back-to-setup-btn"><i class="fas fa-arrow-left"></i> Volver a Configuración</button>
+        <div id="action-buttons-section">
+            <button id="back-to-setup-btn" aria-label="Volver a Configuración"><i class="fas fa-arrow-left"></i> <span class="back-button-text">Volver a Configuración</span></button>
+            <button id="darkModeToggleBtn">
+                <i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none;"></i>
+                <span class="toggle-text">Modo Noche</span>
+            </button>
         </div>
 
         <div class="folder-tab" id="guide-header-tab">
@@ -183,7 +181,7 @@
                 </div>
             </div>
             <div id="assignment-dashboard-buttons-container">
-                <button id="print-dashboard-btn"><i class="fas fa-share-alt"></i> Compartir / Guardar Panel (PDF)</button>
+                <button id="print-dashboard-btn" class="boton-panel-pdf"><i class="fas fa-share-alt"></i> Compartir / Guardar Panel (PDF)</button>
             </div>
         </div>
     </div>
