@@ -519,7 +519,7 @@ button .fas, button .fab { margin-right: 8px; }
     width: 100%;
 }
 
-#back-to-setup-btn, #print-dashboard-btn, #load-config-btn, #add-honoree-btn {
+#back-to-setup-btn, #print-dashboard-btn, #add-honoree-btn {
     font-family: var(--font-special), monospace;
     background-color: #e8e0c9;
     color: #5d4c3c;
@@ -541,25 +541,25 @@ button .fas, button .fab { margin-right: 8px; }
     padding: 8px 12px;
     border-radius: var(--border-radius-soft);
 }
-#back-to-setup-btn:hover, #print-dashboard-btn:hover, #load-config-btn:hover, #add-honoree-btn:hover {
+#back-to-setup-btn:hover, #print-dashboard-btn:hover, #add-honoree-btn:hover {
     background-color: #dcd2ba;
     color: #4a3b2a;
     border-color: var(--color-gold-dark);
     transform: translateY(-2px) scale(1.02);
     box-shadow: 0 4px 8px rgba(0,0,0,0.18), inset 0px 0px 1px rgba(255,255,255,0.5);
 }
-#back-to-setup-btn:active, #print-dashboard-btn:active, #load-config-btn:active, #add-honoree-btn:active {
+#back-to-setup-btn:active, #print-dashboard-btn:active, #add-honoree-btn:active {
     transform: translateY(0px) scale(1);
     box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
 }
-:root.dark-mode #back-to-setup-btn, :root.dark-mode #print-dashboard-btn, :root.dark-mode #load-config-btn, :root.dark-mode #add-honoree-btn {
+:root.dark-mode #back-to-setup-btn, :root.dark-mode #print-dashboard-btn, :root.dark-mode #add-honoree-btn {
     background-color: #4a443b;
     color: var(--color-gold-light);
     border-color: var(--color-gold-dark);
     box-shadow: 2px 2px 4px rgba(0,0,0,0.3), inset 0px 0px 1px rgba(0,0,0,0.3);
     background-image: linear-gradient(to bottom, #5c564e, #4a443b);
 }
-:root.dark-mode #back-to-setup-btn:hover, :root.dark-mode #print-dashboard-btn:hover, :root.dark-mode #load-config-btn:hover, :root.dark-mode #add-honoree-btn:hover {
+:root.dark-mode #back-to-setup-btn:hover, :root.dark-mode #print-dashboard-btn:hover, :root.dark-mode #add-honoree-btn:hover {
     background-color: #5c564e;
     color: #fff;
     border-color: var(--color-gold-medium);
@@ -568,46 +568,49 @@ button .fas, button .fab { margin-right: 8px; }
 #assignment-dashboard-buttons-container {
     text-align: center;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
-.boton-panel-pdf {
+.boton-final {
     font-family: 'Special Elite', monospace;
     background: #6D4C41;
     color: var(--color-gold-pale, #faf3e0);
     border: 2px solid #4E342E;
-    padding: 12px 25px;
+    padding: 16px 32px;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 1.1em;
+    font-size: 1.2em;
     letter-spacing: 1.5px;
-    border-radius: 5px 20px 5px 20px;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.05);
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.05);
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
 }
 
-.boton-panel-pdf:hover {
+.boton-final:hover {
     background: #5D4037;
     border-color: #3E2723;
-    transform: translateY(-1px) scale(1.02);
-    box-shadow: 3px 3px 6px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.05);
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 3px 3px 7px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.1);
 }
 
-.boton-panel-pdf:active {
+.boton-final:active {
     transform: translateY(0) scale(1);
-    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2);
+    box-shadow: inset 1px 1px 4px rgba(0,0,0,0.2);
 }
 
-:root.dark-mode .boton-panel-pdf {
+:root.dark-mode .boton-final {
     background: #563E34;
     border-color: #3E2723;
     color: var(--color-gold-light, #e8d8b0);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset 0 1px 2px rgba(0,0,0,0.1);
 }
 
-:root.dark-mode .boton-panel-pdf:hover {
+:root.dark-mode .boton-final:hover {
     background: #49332B;
     border-color: #2c1b17;
 }

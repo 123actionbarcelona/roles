@@ -127,7 +127,7 @@ function initializeApp(initialChars, initialPacks) {
         let allElementsFound = true;
         domElementIds.forEach(id => {
             const element = document.getElementById(id);
-            if (!element && id !== 'guide-header-tab' && id !== 'load-config-btn') {
+            if (!element && id !== 'guide-header-tab') {
                 console.error(`ERROR DOM: ID '${id}' NO encontrado.`);
                 allElementsFound = false;
             }
@@ -310,11 +310,6 @@ function initializeApp(initialChars, initialPacks) {
 
         if(domElements['start-assignment'])domElements['start-assignment'].addEventListener('click',handleStartAssignment);
         if(domElements['back-to-setup-btn']) domElements['back-to-setup-btn'].addEventListener('click', handleBackToSetup);
-        if (domElements['print-dashboard-btn']) {
-            domElements['print-dashboard-btn'].addEventListener('click', async () => {
-                // ... La lógica de esta función es extensa y se moverá al Bloque 4
-            });
-        }
 
 // 👉👉 FIN BLOQUE 2: INICIALIZACIÓN Y GESTIÓN DEL ESTADO GLOBAL 👈👈
 
