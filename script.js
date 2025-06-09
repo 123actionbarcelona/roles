@@ -1172,17 +1172,35 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProgressiveFlow();
 });
 
-const textoIntro = "🕵️‍♂️ Archivo Confidencial: Testamento Collins";
-let i = 0;
-const speed = 75;
+function runTypewriterOnElement(el, speed = 75) {
+  if (!el) return;
+  const fullText = el.textContent.trim();
+  el.textContent = '';
 
-function typeWriter() {
-  const el = document.getElementById("typewriter-title");
-  if (el && i < textoIntro.length) {
-    el.textContent += textoIntro.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
+  const textSpan = document.createElement('span');
+  const cursor = document.createElement('span');
+  cursor.className = 'typewriter-cursor';
+  el.appendChild(textSpan);
+  el.appendChild(cursor);
+
+  let index = 0;
+  (function typeNext() {
+    textSpan.textContent = fullText.slice(0, index + 1);
+    index++;
+    if (index < fullText.length) {
+      setTimeout(typeNext, speed);
+    } else {
+      cursor.classList.add('hide-typewriter-cursor');
+    }
+  })();
+}
+
+function applyTypewriterEffects() {
+  const elements = [
+    document.getElementById('typewriter-title'),
+    document.querySelector('label[for="clave"]')
+  ];
+  elements.forEach(el => runTypewriterOnElement(el));
 }
 
 function setupProgressiveFlow() {
@@ -1255,14 +1273,7 @@ function setupProgressiveFlow() {
   }
 }
 
-window.addEventListener("load", () => {
-  const titleElement = document.getElementById("typewriter-title");
-  if (titleElement) {
-    titleElement.textContent = '';
-    i = 0;
-    typeWriter();
-  }
-});
+window.addEventListener("load", applyTypewriterEffects);
 
 function validarClave() {
   const clave = document.getElementById('clave')?.value?.trim().toLowerCase();

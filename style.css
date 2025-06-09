@@ -1389,6 +1389,24 @@ button .fas, button .fab { margin-right: 8px; }
   animation-iteration-count: 1;
 }
 
+/* === Typewriter Cursor Animation === */
+@keyframes blinkTypewriterCaret {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 1px;
+  background-color: currentColor;
+  margin-left: 2px;
+  animation: blinkTypewriterCaret 0.8s steps(1) infinite;
+}
+
+.hide-typewriter-cursor {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .coffin-icon,
   .start-assignment-icon,
