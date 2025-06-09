@@ -110,8 +110,8 @@ function initializeApp(initialChars, initialPacks) {
             'player-count', 'player-names-grid-container', 'start-assignment',
             'player-count-error', 'setup-section', 'main-content-area',
             'assignment-table-body', 'female-characters-grid', 'male-characters-grid',
-            'back-to-setup-btn',
-            'darkModeToggleBtn', 'darkModeContainer',
+            'volver-config',
+            'modo-noche', 'darkModeContainer',
             'print-dashboard-btn',
             'detective-guide-section', 'guide-header-tab',
             'assignment-dashboard-buttons-container',
@@ -135,7 +135,7 @@ function initializeApp(initialChars, initialPacks) {
         });
         if (!allElementsFound) { console.error("ERROR FATAL: Elementos DOM esenciales no encontrados."); return; }
 
-        const darkModeButton = domElements['darkModeToggleBtn'];
+        const darkModeButton = domElements['modo-noche'];
         const darkModeContainer = domElements['darkModeContainer'];
         const toggleTextSpan = darkModeButton.querySelector('.toggle-text');
         const moonIcon = darkModeButton.querySelector('.fa-moon');
@@ -311,7 +311,7 @@ function initializeApp(initialChars, initialPacks) {
         // A continuación, se asocian los eventos a las funciones que se definirán más adelante.
 
         if(domElements['start-assignment'])domElements['start-assignment'].addEventListener('click',handleStartAssignment);
-        if(domElements['back-to-setup-btn']) domElements['back-to-setup-btn'].addEventListener('click', handleBackToSetup);
+        if(domElements['volver-config']) domElements['volver-config'].addEventListener('click', handleBackToSetup);
         if (domElements['print-dashboard-btn']) {
             domElements['print-dashboard-btn'].addEventListener('click', async () => {
                 // ... La lógica de esta función es extensa y se moverá al Bloque 4

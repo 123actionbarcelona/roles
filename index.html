@@ -28,11 +28,12 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="container">
-    <div id="darkModeContainer">
-        <button id="darkModeToggleBtn">
+    <div id="darkModeContainer" class="panel-controles">
+        <button id="modo-noche">
             <i class="fas fa-moon"></i><i class="fas fa-sun" style="display:none;"></i>
             <span class="toggle-text">Modo Noche</span>
         </button>
+        <button id="volver-config"><i class="fas fa-arrow-left"></i> Volver a Configuración</button>
     </div>
     <div id="toast-notification"><i class="fas"></i><span id="toast-message"></span></div>
 
@@ -104,9 +105,6 @@
     </div>
 
     <div class="hidden-section" id="main-content-area">
-        <div id="action-buttons-section" style="text-align: center; margin-bottom: 30px;">
-            <button id="back-to-setup-btn"><i class="fas fa-arrow-left"></i> Volver a Configuración</button>
-        </div>
 
         <div class="folder-tab" id="guide-header-tab">
           📂 <span><strong>Apertura del Expediente:</strong></span>
@@ -183,7 +181,7 @@
                 </div>
             </div>
             <div id="assignment-dashboard-buttons-container">
-                <button id="print-dashboard-btn"><i class="fas fa-share-alt"></i> Compartir / Guardar Panel (PDF)</button>
+                <button id="print-dashboard-btn" class="boton-panel-pdf"><i class="fas fa-share-alt"></i> Compartir / Guardar Panel (PDF)</button>
             </div>
         </div>
     </div>
