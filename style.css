@@ -93,16 +93,19 @@
 
 html {
     scroll-behavior: smooth;
-    background: url('Fotos_Personajes/fondo_victoriano.WEBP') repeat fixed;
-    background-size: auto;
     background-color: #1a1a1a;
     background-blend-mode: multiply;
+    min-height: 100%;
 }
 
 body {
     font-family: var(--font-body);
     line-height: 1.7;
-    background: transparent;
+    background: url('Fotos_Personajes/fondo_victoriano.WEBP') repeat fixed;
+    background-size: cover;
+    background-color: #1a1a1a;
+    background-blend-mode: multiply;
+    min-height: 100%;
     color: var(--color-text-dark);
     padding: 20px;
     overflow-x: hidden;
