@@ -111,7 +111,7 @@ function initializeApp(initialChars, initialPacks) {
             'player-count-error', 'setup-section', 'main-content-area',
             'assignment-table-body', 'female-characters-grid', 'male-characters-grid',
             'back-to-setup-btn',
-            'darkModeToggleBtn',
+            'darkModeToggleBtn', 'darkModeToggleBtnSetup',
             'print-dashboard-btn',
             'detective-guide-section', 'guide-header-tab',
             'assignment-dashboard-buttons-container',
@@ -135,22 +135,29 @@ function initializeApp(initialChars, initialPacks) {
         });
         if (!allElementsFound) { console.error("ERROR FATAL: Elementos DOM esenciales no encontrados."); return; }
 
-        const darkModeButton = domElements['darkModeToggleBtn'];
-        const toggleTextSpan = darkModeButton.querySelector('.toggle-text');
-        const moonIcon = darkModeButton.querySelector('.fa-moon');
-        const sunIcon = darkModeButton.querySelector('.fa-sun');
+        const darkModeButtons = [
+            domElements['darkModeToggleBtn'],
+            domElements['darkModeToggleBtnSetup']
+        ].filter(Boolean);
 
         function updateDarkModeVisuals() {
             const isDarkMode = document.documentElement.classList.contains('dark-mode');
-            if (toggleTextSpan) toggleTextSpan.textContent = isDarkMode ? "Modo Día" : "Modo Noche";
-            if (moonIcon) moonIcon.style.display = isDarkMode ? 'none' : 'inline-block';
-            if (sunIcon) sunIcon.style.display = isDarkMode ? 'inline-block' : 'none';
+            darkModeButtons.forEach(btn => {
+                const toggleTextSpan = btn.querySelector('.toggle-text');
+                const moonIcon = btn.querySelector('.fa-moon');
+                const sunIcon = btn.querySelector('.fa-sun');
+                if (toggleTextSpan) toggleTextSpan.textContent = isDarkMode ? 'Modo Día' : 'Modo Noche';
+                if (moonIcon) moonIcon.style.display = isDarkMode ? 'none' : 'inline-block';
+                if (sunIcon) sunIcon.style.display = isDarkMode ? 'inline-block' : 'none';
+            });
         }
 
-        darkModeButton.onclick = null;
-        darkModeButton.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark-mode');
-            updateDarkModeVisuals();
+        darkModeButtons.forEach(btn => {
+            btn.onclick = null;
+            btn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark-mode');
+                updateDarkModeVisuals();
+            });
         });
         updateDarkModeVisuals();
 
