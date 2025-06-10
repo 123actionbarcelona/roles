@@ -981,35 +981,34 @@ button .fas, button .fab { margin-right: 8px; }
 /* Botón de compartir en tarjeta */
 .character-card-actions { margin-top: auto;  padding-top: 10px; }
 .copy-char-btn-frame {
-    background: #222 !important;
-    color: var(--color-gold-light) !important;
-    font-family: var(--font-special), monospace !important;
-    font-size: 0.95em !important;
-    border: 1px solid var(--color-gold-medium) !important;
-    padding: 10px 15px !important;
-    border-radius: 6px !important;
-    display: flex !important;
+    background-color: #222;
+    color: var(--color-gold-light);
+    font-family: var(--font-special), monospace;
+    font-size: 0.95em;
+    border: 1px solid var(--color-gold-dark);
+    padding: 10px 15px;
+    border-radius: var(--border-radius-soft);
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    text-shadow: none !important;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset 1px 1px 3px rgba(0,0,0,0.2);
-    transform: rotate(1deg);
+    text-shadow: none;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
     width: 100%;
     text-transform: none;
     letter-spacing: normal;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.05));
+    transition: var(--transition-smooth), background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 .copy-char-btn-frame:hover {
-    background: #333 !important;
-    border-color: var(--color-gold-light) !important;
-    transform: rotate(0deg) scale(1.02);
-    box-shadow: 3px 3px 7px rgba(0,0,0,0.4), inset 1px 1px 4px rgba(0,0,0,0.3);
+    background-color: #333;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 .copy-char-btn-frame:active {
-    transform: rotate(0deg) scale(1);
-    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.35);
+    transform: translateY(0px) scale(1);
+    box-shadow: var(--box-shadow-inset), 0 1px 2px rgba(0,0,0,0.1);
 }
 .copy-char-btn-frame img { border-radius: 50%; width: 22px; height: 22px; }
 
