@@ -192,5 +192,13 @@
         </div>
     </div>
   </div>
-<script src="script.js?v=1.0"></script></body>
+<script type="module">
+ import { initializeApp } from "./actions.js";
+ import { allCharacters_data, packs_data } from "./data.js";
+ import { setupProgressiveFlow } from "./extras.js";
+ initializeApp(allCharacters_data, packs_data);
+ setupProgressiveFlow();
+</script>
+<script type="module" src="extras.js"></script>
+</body>
 </html>
