@@ -1046,6 +1046,42 @@ button .fas, button .fab { margin-right: 8px; }
     height: 22px;
 }
 
+.share-menu {
+    position: absolute;
+    background: var(--color-content-bg);
+    border: 1px solid var(--color-gold-medium);
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    padding: 4px 0;
+    z-index: 2000;
+    min-width: 180px;
+}
+.share-menu a,
+.share-menu button {
+    display: block;
+    width: 100%;
+    padding: 8px 15px;
+    background: none;
+    border: none;
+    text-align: left;
+    text-decoration: none;
+    color: var(--color-text-dark);
+    font-family: var(--font-body), serif;
+    cursor: pointer;
+}
+.share-menu a:hover,
+.share-menu button:hover {
+    background: rgba(0,0,0,0.05);
+}
+:root.dark-mode .share-menu a,
+:root.dark-mode .share-menu button {
+    color: var(--color-gold-light);
+}
+:root.dark-mode .share-menu a:hover,
+:root.dark-mode .share-menu button:hover {
+    background: rgba(255,255,255,0.1);
+}
+
 /* ============================================= */
 /* Estilos Popovers de Información               */
 /* ============================================= */
