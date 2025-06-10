@@ -1,108 +1,7 @@
-// 👉👉 INICIO BLOQUE 1: CONFIGURACIÓN Y DATOS MAESTROS 👈👈
+import { allCharacters_data, packs_data, specialIconDetails, comboIconDetails } from './data.js';
+import { getGenderedInterpretationText, triggerGoldenGlow } from './state.js';
 
-const allCharacters_data = [
-    { name: "La Viuda", gender: "F", interpretationLevel: "Extrovertido", isBirthdayFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/the-widow/", description: "Elegante pero dramática, figura central tras la tragedia.", imageUrl: "Fotos_Personajes/VIUDA_WIDOW.webp" },
-    { name: "La Sobrina", gender: "F", interpretationLevel: "Neutro", fichaLink: "https://123actionbarcelona.com/englishyes/SOBRINA/", description: "Joven aparentemente dulce y encantadora.", imageUrl: "Fotos_Personajes/LILLY_ROSE.webp" },
-    { name: "La Cocinera", gender: "F", interpretationLevel: "Neutro", fichaLink: "https://123actionbarcelona.com/englishyes/coninera/", description: "De carácter fuerte, intenso y alegre", imageUrl: "Fotos_Personajes/COCINERA_COOK.webp" },
-    { name: "El Ama de Llaves", gender: "F", interpretationLevel: "Neutro", isBirthdayFriendly: true, isSeniorFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/amadellaves/", description: "Recta y eficiente, jefa del servicio", imageUrl: "Fotos_Personajes/AMA_DE_LLAVES.webp" },
-    { name: "La Doncella", gender: "F", interpretationLevel: "Introvertido", isKidFriendly: true, isSeniorFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/ladoncella/", description: "Discreta y atenta, a menudo invisible pero siempre presente.", imageUrl: "Fotos_Personajes/DONCELLA_THE_MAID.webp" },
-    { name: "La Hermana", gender: "F", interpretationLevel: "Extrovertido", preferCenterImage: true, fichaLink: "https://123actionbarcelona.com/englishyes/hermana/", description: "Explosiva, con fuertes opiniones y actitud altiva.", imageUrl: "Fotos_Personajes/LA_HERMANA_THE_SISTER.webp" },
-    { name: "La Secretaria", gender: "F", interpretationLevel: "Neutro", fichaLink: "https://123actionbarcelona.com/englishyes/secretaria/", description: "Organizada y comprometida con el sufragio femenino", imageUrl: "Fotos_Personajes/LA_SECRETARIA.webp" },
-    { name: "La Vecina 1", gender: "F", interpretationLevel: "Introvertido", isSeniorFriendly: true, preferCenterImage: true, fichaLink: "https://123actionbarcelona.com/englishyes/vecinas/", description: "Siempre al tanto de los chismes del vecindario.", imageUrl: "Fotos_Personajes/VECINAS.webp" },
-    { name: "La Vecina 2", gender: "F", interpretationLevel: "Introvertido", isSeniorFriendly: true, preferCenterImage: true, fichaLink: "https://123actionbarcelona.com/englishyes/vecinas/", description: "Siempre al tanto de los chismes del vecindario.", imageUrl: "Fotos_Personajes/VECINAS.webp" },
-    { name: "La Vecina 3", gender: "F", interpretationLevel: "Introvertido", isSeniorFriendly: true, preferCenterImage: true, fichaLink: "https://123actionbarcelona.com/englishyes/vecinas/", description: "Siempre al tanto de los chismes del vecindario.", imageUrl: "Fotos_Personajes/VECINAS.webp" },
-    { name: "La Vecina 4", gender: "F", interpretationLevel: "Introvertido", isSeniorFriendly: true, preferCenterImage: true, fichaLink: "https://123actionbarcelona.com/englishyes/vecinas/", description: "Siempre al tanto de los chismes del vecindario.", imageUrl: "Fotos_Personajes/VECINAS.webp" },
-    { name: "La Vecina 5", gender: "F", interpretationLevel: "Introvertido", isSeniorFriendly: true, preferCenterImage: true, fichaLink: "https://123actionbarcelona.com/englishyes/vecinas/", description: "Siempre al tanto de los chismes del vecindario.", imageUrl: "Fotos_Personajes/VECINAS.webp" },
-    { name: "El Gestor", gender: "M", interpretationLevel: "Extrovertido", isBirthdayFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/gestoresp/", description: "Maneja la fortuna familiar y conoce sus entresijos.", imageUrl: "Fotos_Personajes/GESTOR_ACCOUNTANT.webp" },
-    { name: "El Hijastro", gender: "M", interpretationLevel: "Extrovertido", fichaLink: "https://123actionbarcelona.com/englishyes/jeremy/", description: "Un joven militar de honor muy masculino.", imageUrl: "Fotos_Personajes/HIJASTRO_STEPSON.webp" },
-    { name: "El Hermano", gender: "M", interpretationLevel: "Extrovertido", preferCenterImage: true, fichaLink: "https://123actionbarcelona.com/englishyes/henry/", description: "Carismático director de cine que solo piensa en el arte", imageUrl: "Fotos_Personajes/HERMANO_BROTHER.webp" },
-    { name: "El Doctor", gender: "M", interpretationLevel: "Neutro", isBirthdayFriendly: true, isSeniorFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/doctoresp/", description: "Muy profesional aunque va de enterado", imageUrl: "Fotos_Personajes/DOCTOR.webp" },
-    { name: "El Socio", gender: "M", interpretationLevel: "Introvertido", isKidFriendly: true, isSeniorFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/petersocio/", description: "Hombre de negocios con alta autoestima", imageUrl: "Fotos_Personajes/SOCIO.webp" },
-    { name: "El Cuñado", gender: "M", interpretationLevel: "Neutro", fichaLink: "https://123actionbarcelona.com/englishyes/cunadoroy/", description: "Excéntrico, divertido y derrochador", imageUrl: "Fotos_Personajes/BROTHER_IN_LAW.webp" },
-    { name: "El Gemelo 1", gender: "M", interpretationLevel: "Introvertido", isKidFriendly: true, isSeniorFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/losgemelos/", description: "Pequeño genio de carácter algo particular", imageUrl: "Fotos_Personajes/GEMELOS_TWINS.webp" },
-    { name: "El Gemelo 2", gender: "M", interpretationLevel: "Introvertido", isKidFriendly: true, isSeniorFriendly: true, fichaLink: "https://123actionbarcelona.com/englishyes/losgemelos/", description: "Pequeño genio de carácter algo particular", imageUrl: "Fotos_Personajes/GEMELOS_TWINS.webp" }
-];
-
-const packs_data = {
-    8:  ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor"],
-    9:  ["La Viuda", "El Gestor", "La Sobrina", "El Hermano", "La Cocinera", "El Hijastro", "El Ama de Llaves", "El Doctor", "La Doncella"],
-    10: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio"],
-    11: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana"],
-    12: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado"],
-    13: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1"],
-    14: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1", "El Gemelo 2"],
-    15: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1", "El Gemelo 2", "La Secretaria"],
-    16: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1", "El Gemelo 2", "La Vecina 1", "La Vecina 2"],
-    17: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1", "El Gemelo 2", "La Secretaria", "La Vecina 1", "La Vecina 2"],
-    18: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1", "El Gemelo 2", "La Secretaria", "La Vecina 1", "La Vecina 2", "La Vecina 3"],
-    19: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1", "El Gemelo 2", "La Secretaria", "La Vecina 1", "La Vecina 2", "La Vecina 3", "La Vecina 4"],
-    20: ["La Viuda", "El Gestor", "La Sobrina", "El Hijastro", "La Cocinera", "El Hermano", "El Ama de Llaves", "El Doctor", "La Doncella", "El Socio", "La Hermana", "El Cuñado", "El Gemelo 1", "El Gemelo 2", "La Secretaria", "La Vecina 1", "La Vecina 2", "La Vecina 3", "La Vecina 4", "La Vecina 5"]
-};
-
-// Objeto de detalles para iconos individuales
-const specialIconDetails = {
-    isBirthdayFriendly: {
-        title: '🌟 <strong>Rol principal</strong>',
-        text: 'Permite que el homenajeado se luzca.'
-    },
-    isKidFriendly: {
-        title: '🧸 <strong>Apto para menores</strong>',
-        text: 'Fácil de entender y sin contenido +18.'
-    },
-    isSeniorFriendly: {
-        title: '👵🏻 <strong>Personaje versátil</strong>',
-        text: 'Compatible con personas mayores: trama clara y fácil de interpretar.'
-    }
-};
-
-// Objeto de detalles para iconos combinados (ACTUALIZADO)
-const comboIconDetails = {
-    birthday_senior: {
-        title: '🌟👵🏻 <strong>Personaje versátil</strong>',
-        text: '<strong>Compatible con personas mayores:</strong> trama clara y fácil de interpretar, ideal para un papel destacado sin complicaciones.'
-    },
-    kid_senior: {
-        title: '🧸👵🏻 <strong>Personaje versátil</strong>',
-        text: 'Compatible tanto con <strong>jugadores jóvenes</strong> como con <strong>personas mayores</strong>.<br><br>Trama accesible, sin contenido +18 y fácil de interpretar para cualquier tipo de jugador.'
-    }
-};
-
-// 👉👉 FIN BLOQUE 1: CONFIGURACIÓN Y DATOS MAESTROS 👈👈
-
-
-// 👉👉 A PARTIR DE AQUÍ PEGAR EL BLOQUE 2: INICIALIZACIÓN Y GESTIÓN DEL ESTADO GLOBAL 👈👈
-// �👉 INICIO BLOQUE 2: INICIALIZACIÓN Y GESTIÓN DEL ESTADO GLOBAL 👈👈
-
-function getGenderedInterpretationText(level, gender) {
-    const firstLetter = level ? level[0].toUpperCase() : "U";
-    let baseWord;
-
-    switch (firstLetter) {
-        case "E": baseWord = "Extrovertid"; break;
-        case "I": baseWord = "Introvertid"; break;
-        case "N": baseWord = "Camaleónic"; break;
-        default:  return "Indefinido";
-    }
-    const suffix = (gender && gender.toUpperCase() === "F") ? "a" : "o";
-    return baseWord + suffix;
-}
-
-function triggerGoldenGlow(element) {
-    if (!element) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-        console.log("Movimiento reducido preferido, omitiendo animación de brillo.");
-        return;
-    }
-
-    element.classList.add('highlight-glow');
-    setTimeout(() => {
-        element.classList.remove('highlight-glow');
-    }, 2000);
-}
-
-function initializeApp(initialChars, initialPacks) {
+function initializeApp(initialChars = allCharacters_data, initialPacks = packs_data) {
     const packs = initialPacks;
 
     try {
@@ -239,7 +138,6 @@ function initializeApp(initialChars, initialPacks) {
                         nextFocusElement = domElements['player-count'];
                     }
 
-
                     if (nextFocusElement) {
                         nextFocusElement.focus();
                     }
@@ -328,12 +226,6 @@ function initializeApp(initialChars, initialPacks) {
             });
         }
 
-// 👉👉 FIN BLOQUE 2: INICIALIZACIÓN Y GESTIÓN DEL ESTADO GLOBAL 👈👈
-
-
-// 👉👉 A PARTIR DE AQUÍ PEGAR EL BLOQUE 3: RENDERIZADO DE UI Y COMPONENTES VISUALES 👈👈
-// 👉👉 INICIO BLOQUE 3: RENDERIZADO DE UI Y COMPONENTES VISUALES 👈👈
-
         function addHonoreeInput(name = "") {
             const container = domElements['honorees-container'];
             const inputGroup = document.createElement('div');
@@ -398,7 +290,6 @@ function initializeApp(initialChars, initialPacks) {
             messageSpan.textContent = message;
             toast.className = 'show';
             iconElement.className = 'fas';
-
             if (type === 'success') {
                 toast.classList.add('success');
                 iconElement.classList.add('fa-check-circle');
@@ -418,11 +309,9 @@ function initializeApp(initialChars, initialPacks) {
 
         function generatePlayerNameInputs(count, existingPlayerNamesFromGrid = []) {
             if (!domElements['player-names-grid-container']) { return; }
-
             const currentHostNameVal = domElements['host-name-input'] ? domElements['host-name-input'].value.trim() : "";
             const currentHonoreeInputs = domElements['honorees-container'] ? Array.from(domElements['honorees-container'].querySelectorAll('.honoree-name-input')) : [];
             const currentHonoreeCleanNamesArr = currentHonoreeInputs.map(input => input.value.trim()).filter(name => name);
-
             let preservedEditableNames = [];
             if (existingPlayerNamesFromGrid.length > 0) {
                 let tempPreserved = [...existingPlayerNamesFromGrid];
@@ -432,48 +321,53 @@ function initializeApp(initialChars, initialPacks) {
                 });
                 preservedEditableNames = tempPreserved;
             } else if (domElements['player-names-grid-container'].children.length > 0) {
-                preservedEditableNames = Array.from(domElements['player-names-grid-container'].querySelectorAll('input.player-name-box:not([readonly])'))
-                                              .map(input => input.value.trim());
+                preservedEditableNames = Array.from(domElements['player-names-grid-container'].querySelectorAll('input.player-name-box:not([readonly])')).map(i => i.value.trim()).filter(name => name);
             }
-
-
             domElements['player-names-grid-container'].innerHTML = '';
-            let playerBoxIndex = 0;
             let editableNamesIndex = 0;
-
+            let playerBoxIndex = 0;
             if (currentHostNameVal) {
-                if (playerBoxIndex < count) {
-                    const input = document.createElement('input');
-                    input.type = 'text'; input.classList.add('player-name-box');
-                    input.value = currentHostNameVal + " 🎩"; input.readOnly = true;
-                    input.title = "Anfitrión/Host (configurado arriba)";
-                    domElements['player-names-grid-container'].appendChild(input);
-                    playerBoxIndex++;
-                }
+                const hostInput = document.createElement('input');
+                hostInput.type = 'text';
+                hostInput.readOnly = true;
+                hostInput.className = 'player-name-box';
+                hostInput.value = currentHostNameVal + " 🎩";
+                hostInput.placeholder = 'Anfitrión';
+                domElements['player-names-grid-container'].appendChild(hostInput);
+                playerBoxIndex++;
             }
-
-            currentHonoreeCleanNamesArr.forEach(honoreeCleanName => {
+            currentHonoreeCleanNamesArr.forEach((hName, idx) => {
+                const hInput = document.createElement('input');
+                hInput.type = 'text';
+                hInput.readOnly = true;
+                hInput.className = 'player-name-box';
+                hInput.value = hName + " 🌟";
+                hInput.placeholder = `Homenajeado/a ${idx + 1}`;
+                domElements['player-names-grid-container'].appendChild(hInput);
+                playerBoxIndex++;
+            });
+            preservedEditableNames.forEach(name => {
                 if (playerBoxIndex < count) {
                     const input = document.createElement('input');
-                    input.type = 'text'; input.classList.add('player-name-box');
-                    input.value = honoreeCleanName + " 🌟"; input.readOnly = true;
-                    input.title = "Homenajeado/a (configurado arriba)";
+                    input.type = 'text';
+                    input.classList.add('player-name-box');
+                    input.value = name;
+                    input.placeholder = `Jugador ${playerBoxIndex + 1}`;
+                    input.setAttribute('aria-label', input.placeholder);
+                    input.style.animationDelay = `${(playerBoxIndex) * 0.05}s`;
                     domElements['player-names-grid-container'].appendChild(input);
                     playerBoxIndex++;
                 }
             });
-
             for (let i = playerBoxIndex; i < count; i++) {
                 const input = document.createElement('input');
                 input.type = 'text'; input.classList.add('player-name-box');
-
                 if (editableNamesIndex < preservedEditableNames.length) {
                     input.value = preservedEditableNames[editableNamesIndex];
                     editableNamesIndex++;
                 } else {
                     input.value = '';
                 }
-
                 input.placeholder = `Jugador ${i + 1 - playerBoxIndex + (currentHostNameVal ? 1 : 0) + currentHonoreeCleanNamesArr.length}`;
                 if (i === playerBoxIndex && !currentHostNameVal && currentHonoreeCleanNamesArr.length === 0) {
                      input.placeholder = "(Tu nombre como jugador)";
@@ -481,7 +375,6 @@ function initializeApp(initialChars, initialPacks) {
                 input.setAttribute('aria-label', input.placeholder);
                 input.style.animationDelay = `${(i - playerBoxIndex) * 0.05}s`;
                 domElements['player-names-grid-container'].appendChild(input);
-
                 input.addEventListener('keydown', function(event) {
                     if (event.key === 'Enter') {
                         event.preventDefault();
@@ -494,7 +387,7 @@ function initializeApp(initialChars, initialPacks) {
                         }
                     }
                 });
-                 input.addEventListener('blur', () => {}); // Se deja el listener vacío por si se reintroduce lógica
+                 input.addEventListener('blur', () => {});
                 if (i === playerBoxIndex && !input.value) {
                      setTimeout(() => input.focus(), 50);
                 }
@@ -514,7 +407,6 @@ function initializeApp(initialChars, initialPacks) {
                 if (!oCharData) { console.warn(`Advertencia: No se encontraron datos para el personaje ${name} en allCharacters_data.`); return null; }
                 return JSON.parse(JSON.stringify(oCharData));
             }).filter(Boolean);
-
             currentCharacters.forEach((char, i) => {
                 const grid = char.gender === 'F' ? domElements['female-characters-grid'] : domElements['male-characters-grid'];
                 if (grid) { renderCharacterCard(char, grid, i * 0.07); }
@@ -544,7 +436,6 @@ function initializeApp(initialChars, initialPacks) {
             let popoverDetails = null;
             let decorativeEmojis = "";
             let popoverDataType = "";
-
             if (char.isBirthdayFriendly && char.isSeniorFriendly) {
                 popoverDetails = comboIconDetails.birthday_senior;
                 decorativeEmojis = `🌟👵🏻`;
@@ -566,7 +457,6 @@ function initializeApp(initialChars, initialPacks) {
                 decorativeEmojis = `👵🏻`;
                 popoverDataType = "single-senior";
             }
-
             if (popoverDetails) {
                 iconsHTML = `
                     <div class="icono-info" data-icon-type="${popoverDataType}">
@@ -584,7 +474,6 @@ function initializeApp(initialChars, initialPacks) {
                         </div>
                     </div>`;
             }
-
             return `<div class="extroversion-level-wrapper">
                         <div class="extroversion-level-container">${getExtroversionPill(char.interpretationLevel, char.gender)}</div>
                         <div class="card-icons-indicators">${iconsHTML}</div>
@@ -596,7 +485,6 @@ function initializeApp(initialChars, initialPacks) {
             frame.classList.add('character-frame');
             frame.classList.add('deal-animation');
             frame.style.animationDelay = `${animationDelayValue}s`;
-
             frame.dataset.charnameForMandatory = character.name;
             const charId = character.name.replace(/[^a-zA-Z0-9-_]/g, '').toLowerCase();
             const imageClass = `character-portrait-image ${character.preferCenterImage ? 'img-position-center' : ''}`;
@@ -647,7 +535,6 @@ function initializeApp(initialChars, initialPacks) {
                 const pA=(playerIO?(playerIO.value.trim()||"[Nombre del Jugador]"):"[Nombre del Jugador]").replace("🎩","").replace("🌟","").trim();
                 if(d){
                     const txt = `¡Hola ${pA}!\n\nAquí tienes los detalles de tu sospechoso para el Cluedo en vivo “El Testamento de Mr. Collins”:\n\n🕵️ SOSPECHOSO: ${d.name}\n📜 DESCRIPCIÓN: ${d.description}\n\n🔗 Accede a tu ficha completa aquí: ${d.fichaLink||'N/A'}\n\n¡Recuerda que toda la información de la ficha es confidencial! 🤫`;
-
                     const isiPhone = /iPhone/i.test(navigator.userAgent);
                     if (isiPhone && navigator.share) {
                         try {
@@ -670,7 +557,6 @@ function initializeApp(initialChars, initialPacks) {
              if(availablePlayerNames.length===0)return;
             document.querySelectorAll('.character-portrait-content select.player-assignment-select').forEach(sel=>{
                 const charNameForThisSelect=sel.dataset.charname;
-
                 let optionsHtml='<option value="">-- Seleccionar --</option>';
                 availablePlayerNames.forEach(playerName=>{
                     let isPlayerAssignedElsewhereFlag=false;
@@ -680,7 +566,6 @@ function initializeApp(initialChars, initialPacks) {
                             break;
                         }
                     }
-
                     let displayText = playerName;
                     if (playerName.includes("🎩")) {
                         displayText = playerName + " (Anfitrión)";
@@ -690,7 +575,6 @@ function initializeApp(initialChars, initialPacks) {
                     optionsHtml += `<option value="${playerName}" ${isPlayerAssignedElsewhereFlag ? 'disabled' : ''}>${displayText}</option>`;
                 });
                 sel.innerHTML=optionsHtml;
-
                 const playerActuallyAssignedToThisChar = assignedPlayerMap.get(charNameForThisSelect);
                 if(playerActuallyAssignedToThisChar){
                     sel.value=playerActuallyAssignedToThisChar;
@@ -712,7 +596,6 @@ function initializeApp(initialChars, initialPacks) {
             currentCharacters.forEach(char=>{
                 const rawPlayerName = assignedPlayerMap.get(char.name);
                 const displayPlayerName = rawPlayerName ? rawPlayerName.replace("🎩"," (Anfitrión)").replace("🌟"," (Homenajeado)") : '<em>S/A</em>';
-
                 const r=domElements['assignment-table-body'].insertRow();const cI=r.insertCell();
                 if(char.imageUrl){
                     const i=document.createElement('img');
@@ -727,7 +610,7 @@ function initializeApp(initialChars, initialPacks) {
                     };
                     cI.appendChild(i);
                 }else{
-                    cI.innerHTML='<i class="fas fa-image" style="font-size:24px;color:#ccc;"></i>';
+                    cI.innerHTML='<i class="fas fa-image" style="font-size:24px;color:#ccc;\"></i>';
                 }
                 const cN=r.insertCell();
                 cN.innerHTML=`${char.name}`;
@@ -743,33 +626,25 @@ function initializeApp(initialChars, initialPacks) {
         function adjustPopoverPosition(iconTriggerElement, popoverWrapper, popover, frame) {
             const iconContainer = iconTriggerElement.closest('.icono-info');
             if (!iconContainer || !popoverWrapper || !popover || !frame) return;
-
             const iconContainerRect = iconContainer.getBoundingClientRect();
             const frameRect = frame.getBoundingClientRect();
             const popoverHeight = popover.offsetHeight;
             const popoverWidth = popover.offsetWidth;
             const arrowAndGapHeight = 12;
             const popoverMarginFromControls = 5;
-
             if (popoverWidth === 0 || popoverHeight === 0) return;
-
             const currentPopoverWrapperRect = popoverWrapper.getBoundingClientRect();
-
             let boundaryCorrectionShiftPx = 0;
             if (currentPopoverWrapperRect.left < frameRect.left) {
                 boundaryCorrectionShiftPx = frameRect.left - currentPopoverWrapperRect.left;
             } else if (currentPopoverWrapperRect.right > frameRect.right) {
                 boundaryCorrectionShiftPx = frameRect.right - currentPopoverWrapperRect.right;
             }
-
             const visualNudgePx = -1.5;
-
             popoverWrapper.style.transform = `translateX(-50%) translateX(${boundaryCorrectionShiftPx + visualNudgePx}px)`;
-
             popover.classList.remove('popover-above');
             popoverWrapper.style.top = `calc(100% + ${arrowAndGapHeight}px)`;
             popoverWrapper.style.bottom = 'auto';
-
             const selectElement = frame.querySelector('.player-assignment-select');
             let contentAreaBottomLimit = frameRect.bottom;
             if (selectElement) {
@@ -777,15 +652,12 @@ function initializeApp(initialChars, initialPacks) {
                 contentAreaBottomLimit = selectRect.top - popoverMarginFromControls;
             }
             contentAreaBottomLimit = Math.max(contentAreaBottomLimit, iconContainerRect.bottom + arrowAndGapHeight + 20);
-
             const popoverTopEdgeIfBelow = iconContainerRect.bottom + arrowAndGapHeight;
             const popoverBottomIfBelow = popoverTopEdgeIfBelow + popoverHeight;
             const popoverBottomEdgeIfAbove = iconContainerRect.top - arrowAndGapHeight;
             const popoverTopIfAbove = popoverBottomEdgeIfAbove - popoverHeight;
-
             const fitsNicelyBelow = popoverBottomIfBelow <= contentAreaBottomLimit;
             const fitsWithinFrameAbove = popoverTopIfAbove >= frameRect.top;
-
             if (!fitsNicelyBelow && fitsWithinFrameAbove) {
                 popoverWrapper.style.top = 'auto';
                 popoverWrapper.style.bottom = `calc(100% + ${arrowAndGapHeight}px)`;
@@ -796,24 +668,19 @@ function initializeApp(initialChars, initialPacks) {
         function openPopover(iconTriggerElement) {
             const iconContainer = iconTriggerElement.closest('.icono-info');
             if (!iconContainer) return;
-
             document.querySelectorAll('.icono-info.active').forEach(activeIconContainer => {
                 if (activeIconContainer !== iconContainer) closePopover(activeIconContainer);
             });
-
             iconContainer.classList.add('active');
             iconContainer.closest('.character-frame')?.classList.add('popover-active-frame');
-
             const popoverWrapper = iconContainer.querySelector('.popover-wrapper');
             const popover = iconContainer.querySelector('.popover');
             const frame = iconContainer.closest('.character-frame');
-
             if (popoverWrapper && popover && frame) {
                 popover.classList.remove('popover-above');
                 popoverWrapper.style.top = `calc(100% + 12px)`;
                 popoverWrapper.style.bottom = 'auto';
                 popoverWrapper.style.transform = 'translateX(-50%)';
-
                 requestAnimationFrame(() => {
                     adjustPopoverPosition(iconTriggerElement, popoverWrapper, popover, frame);
                     activePopoverElements = { iconEl: iconContainer, wrapper: popoverWrapper, popoverEl: popover, frameEl: frame, triggerEl: iconTriggerElement };
@@ -825,7 +692,6 @@ function initializeApp(initialChars, initialPacks) {
             if (!iconContainer || !iconContainer.classList.contains('active')) return;
             iconContainer.classList.remove('active');
             iconContainer.closest('.character-frame')?.classList.remove('popover-active-frame');
-
             const popoverWrapper = iconContainer.querySelector('.popover-wrapper');
             if (popoverWrapper) {
                 popoverWrapper.style.transform = 'translateX(-50%)';
@@ -848,9 +714,7 @@ function initializeApp(initialChars, initialPacks) {
         document.addEventListener('click', function(e) {
             const clickedIconTrigger = e.target.closest('.special-icon-fa');
             const clickedIconContainer = e.target.closest('.icono-info');
-
             if (e.target.closest('.popover')) return;
-
             if (clickedIconTrigger) {
                 e.stopPropagation();
                 togglePopover(clickedIconTrigger);
@@ -869,7 +733,6 @@ function initializeApp(initialChars, initialPacks) {
                 activePopoverElements.popoverEl.classList.remove('popover-above');
                 activePopoverElements.wrapper.style.top = `calc(100% + 12px)`;
                 activePopoverElements.wrapper.style.bottom = 'auto';
-
                 requestAnimationFrame(() => {
                     const originalIconTrigger = activePopoverElements.triggerEl;
                     if (originalIconTrigger) {
@@ -900,7 +763,6 @@ function initializeApp(initialChars, initialPacks) {
 
         function openShareMenu(trigger, txt, name) {
             closeActiveShareMenu();
-
             const menu = document.createElement('div');
             menu.className = 'share-menu';
             menu.innerHTML = `
@@ -912,64 +774,45 @@ function initializeApp(initialChars, initialPacks) {
             const rect = trigger.getBoundingClientRect();
             menu.style.left = rect.left + window.scrollX + 'px';
             menu.style.top = rect.bottom + window.scrollY + 'px';
-
             menu.querySelector('.share-copy-option').addEventListener('click', () => {
                 navigator.clipboard.writeText(txt)
                     .then(() => showToastNotification('Texto copiado al portapapeles', 'success'))
                     .catch(() => showToastNotification('Error al copiar texto', 'error'));
                 closeActiveShareMenu();
             });
-
             activeShareMenu = menu;
             activeShareMenu.trigger = trigger;
             setTimeout(() => document.addEventListener('click', handleShareMenuOutside));
         }
         // --- FIN: Lógica de Popovers ---
 
-// 👉👉 FIN BLOQUE 3: RENDERIZADO DE UI Y COMPONENTES VISUALES 👈👈
-
-
-// 👉👉 A PARTIR DE AQUÍ PEGAR EL BLOQUE 4: ACCIONES PRINCIPALES Y EXPORTACIÓN 👈👈
-// 👉👉 INICIO BLOQUE 4: ACCIONES PRINCIPALES Y EXPORTACIÓN 👈👈
-
         function handleBackToSetup() {
             if (!domElements['setup-section'] || !domElements['main-content-area']) return;
-
             domElements['main-content-area'].classList.add('hidden-section');
             domElements['main-content-area'].classList.remove('visible-section');
             domElements['setup-section'].style.display = 'block';
-
-            // Reinitialize setup so player name inputs regenerate with preserved data
             initializeFreshSetupState();
-
             domElements['setup-section'].scrollIntoView({ behavior: 'smooth', block: 'start' });
-
             showToastNotification('Has vuelto a la configuración. Los datos se conservan.', 'info');
         }
 
         function handleStartAssignment() {
             if (!domElements['player-count'] || !domElements['player-count-error'] || !domElements['main-content-area'] ||
                 !domElements['player-names-grid-container'] || !domElements['setup-section']) { return; }
-
             hostName = domElements['host-name-input'] ? domElements['host-name-input'].value.trim() : "";
             eventDateValue = domElements['event-date-input'] ? domElements['event-date-input'].value : "";
-
             if (!eventDateValue) {
                 showToastNotification('Por favor, selecciona la fecha del evento para continuar.', 'error');
                 if (domElements['event-date-input']) domElements['event-date-input'].focus();
                 return;
             }
-
             const honoreeNameInputs = domElements['honorees-container'] ? Array.from(domElements['honorees-container'].querySelectorAll('.honoree-name-input')) : [];
             honoreeNames = honoreeNameInputs.map(input => input.value.trim()).filter(name => name);
-
-
             const playerCount = parseInt(domElements['player-count'].value);
             if (!packs[playerCount]) {
                 showToastNotification(`No hay pack para ${playerCount} jugadores. Packs: ${Object.keys(packs).join(', ')}.`, 'error');
                 domElements['main-content-area'].classList.remove('visible-section'); domElements['main-content-area'].classList.add('hidden-section'); return;
             }
-
             availablePlayerNames = [];
             if (hostName) {
                 availablePlayerNames.push(hostName + " 🎩");
@@ -986,26 +829,21 @@ function initializeApp(initialChars, initialPacks) {
                     availablePlayerNames.push(cleanName);
                 }
             });
-
             const totalPreFilledNames = (hostName ? 1 : 0) + honoreeNames.length;
             const expectedEditableNames = playerCount - totalPreFilledNames;
             const actualEditableNamesEntered = nameInputs.length > 0 ? Array.from(nameInputs).filter(input => input.value.trim()).length : 0;
-
             if (availablePlayerNames.length !== playerCount) {
-                 showToastNotification(`El número de jugadores (${playerCount}) no coincide con los nombres proporcionados (${availablePlayerNames.length}, incluyendo anfitrión/homenajeados). Revisa los campos. Asegúrate de que todos los jugadores tengan nombre.`, 'error', 6000);
+                 showToastNotification(`El número de jugadores (${playerCount})no coincide con los nombres proporcionados (${availablePlayerNames.length}, incluyendo anfitrión/homenajeados). Revisa los campos. Asegúrate de que todos los jugadores tengan nombre.`, 'error', 6000);
                  return;
             }
             if (expectedEditableNames > 0 && actualEditableNamesEntered < expectedEditableNames) {
                 showToastNotification(`Faltan nombres de jugadores. Se esperan ${expectedEditableNames} nombres adicionales.`, 'error', 5000);
                 return;
             }
-
-
             const cleanPlayerNamesForCheck = availablePlayerNames.map(nameWithEmoji =>
                 nameWithEmoji.replace("🎩","").replace("🌟","").trim().toLowerCase()
             );
             const uniqueNames = new Set(cleanPlayerNamesForCheck);
-
             if (uniqueNames.size !== cleanPlayerNamesForCheck.length) {
                 const nameCounts = {};
                 let duplicateNameFoundForMessage = "";
@@ -1020,8 +858,6 @@ function initializeApp(initialChars, initialPacks) {
                 showToastNotification(`Error: El nombre "${duplicateNameFoundForMessage}" está duplicado. Por favor, usa nombres únicos o añade un distintivo (ej: Ana S.).`, 'error', 6000);
                 return;
             }
-
-
             assignedPlayerMap.clear();
             domElements['player-count-error'].style.display = 'none'; domElements['setup-section'].style.display = 'none';
             domElements['main-content-area'].classList.remove('hidden-section');
@@ -1037,34 +873,27 @@ function initializeApp(initialChars, initialPacks) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Se sobreescribe el listener del botón de imprimir para añadir la lógica completa
         if (domElements['print-dashboard-btn']) {
             domElements['print-dashboard-btn'].addEventListener('click', async () => {
                 showToastNotification('Generando PDF artístico...', 'info', 6000);
-
                 if (typeof window.jspdf === 'undefined' || typeof window.jspdf.jsPDF === 'undefined') {
                     showToastNotification("Error: La librería jsPDF no está cargada.", 'error');
                     return;
                 }
-
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-
                 const page = { width: doc.internal.pageSize.getWidth(), height: doc.internal.pageSize.getHeight() };
                 const margin = 10;
                 const columnMargin = 5;
                 const cardMarginY = 4;
                 const numColumns = 3;
-
                 const card = {
                     width: (page.width - (margin * 2) - (columnMargin * (numColumns - 1))) / numColumns,
                     height: 25
                 };
                 const colors = { dark: '#2c1f1b', gold: '#8c703c', light_gold: '#c0a062', bg: '#faf3e0' };
-
                 const hostPlayerName = hostName ? hostName + " 🎩" : null;
                 const honoreePlayerNames = honoreeNames.map(name => name + " 🌟");
-
                 const sortedCharacters = [...currentCharacters].sort((a, b) => {
                     const playerA = assignedPlayerMap.get(a.name);
                     const playerB = assignedPlayerMap.get(b.name);
@@ -1080,26 +909,21 @@ function initializeApp(initialChars, initialPacks) {
                     if (isAHost && isBHonoree) return 1;
                     return 0;
                 });
-
                 const totalCards = sortedCharacters.length;
-
                 doc.setDrawColor(colors.gold);
                 doc.setLineWidth(1);
                 doc.rect(margin / 2, margin / 2, page.width - margin, page.height - margin);
                 doc.setDrawColor(colors.dark);
                 doc.setLineWidth(0.2);
                 doc.rect((margin / 2) + 1.5, (margin / 2) + 1.5, page.width - margin - 3, page.height - margin - 3);
-
                 try { doc.setFont('PlayfairDisplay-Bold', 'bold'); } catch (e) { doc.setFont('Helvetica', 'bold'); }
                 doc.setFontSize(20);
                 doc.setTextColor(colors.dark);
                 doc.text("Panel Detectivesco", page.width / 2, margin + 8, { align: 'center' });
-
                 doc.setFont('Helvetica', 'italic');
                 doc.setFontSize(8);
                 doc.setTextColor(colors.gold);
                 doc.text(`El Testamento de Mr. Collins`, page.width - margin, page.height - (margin / 2) - 3, { align: 'right' });
-
                 const drawInfoLine = (y, label, value) => {
                     const valueX = eventInfoX + 55;
                     try { doc.setFont('Lora', 'bold'); } catch (e) { doc.setFont('Helvetica', 'bold'); }
@@ -1108,72 +932,54 @@ function initializeApp(initialChars, initialPacks) {
                     doc.text(value, valueX, y, { charSpace: 0.1 });
                     return y + 8;
                 };
-
                 let yPos = margin + 22;
                 const eventInfoX = margin + 5;
-
                 doc.setTextColor(colors.dark);
-
                 if (eventDateValue) {
                     const dateObj = new Date(eventDateValue + 'T00:00:00');
-                    const formattedDate = dateObj.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+                    const formattedDate = dateObj.toLocaleDateString('es-ES', {day: 'numeric', month: 'long', year: 'numeric' });
                     yPos = drawInfoLine(yPos, "Fecha:", formattedDate);
                 }
-
                 yPos = drawInfoLine(yPos, "Nº de Sospechosos:", String(totalCards));
-
                 if (hostName) {
                     yPos = drawInfoLine(yPos, "Anfitrión:", hostName);
                 }
-
                 if (honoreeNames && honoreeNames.length > 0) {
                     yPos = drawInfoLine(yPos, "Homenajeado/a(s):", honoreeNames.join(', '));
                 }
-
                 yPos += 3;
                 doc.setDrawColor(colors.light_gold);
                 doc.setLineWidth(0.5);
                 doc.line(margin, yPos, page.width - margin, yPos);
                 yPos += 8;
-
                 for (let i = 0; i < totalCards; i++) {
                     const char = sortedCharacters[i];
                     const col = i % numColumns;
                     const row = Math.floor(i / numColumns);
-
                     const cardX = margin + (col * (card.width + columnMargin));
                     const cardY = yPos + (row * (card.height + cardMarginY));
-
                     doc.setFillColor(colors.bg);
                     doc.setDrawColor(colors.light_gold);
                     doc.setLineWidth(0.4);
                     doc.roundedRect(cardX, cardY, card.width, card.height, 2, 2, 'FD');
-
                     const textX = cardX + card.width / 2;
-
                     try { doc.setFont('Special Elite', 'normal'); } catch(e) { doc.setFont('Courier', 'normal'); }
                     doc.setFontSize(11);
                     doc.setTextColor(colors.dark);
                     doc.text(char.name.toUpperCase(), textX, cardY + 8, { align: 'center' });
-
                     doc.setDrawColor(colors.light_gold);
                     doc.setLineWidth(0.2);
                     doc.line(cardX + 4, cardY + 10.5, cardX + card.width - 4, cardY + 10.5);
-
                     const playerName = assignedPlayerMap.get(char.name) || 'S/A';
                     const cleanPlayerName = playerName.replace(/🎩|🌟/g, '').trim();
-
                     try { doc.setFont('Lora', 'bold'); } catch(e) { doc.setFont('Helvetica', 'bold'); }
                     doc.setFontSize(12);
                     doc.setTextColor(colors.gold);
                     doc.text(cleanPlayerName, textX, cardY + 18, { align: 'center' });
                 }
-
                 const pdfBlob = doc.output('blob');
                 const pdfFile = new File([pdfBlob], "panel_detectivesco_final.pdf", { type: "application/pdf" });
-
                 showToastNotification('PDF artístico generado.', 'success', 3000);
-
                 if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
                     try {
                         await navigator.share({ files: [pdfFile], title: 'Panel Detectivesco - Intriga', text: 'Aquí está el panel de asignaciones del juego de intriga.' });
@@ -1190,16 +996,13 @@ function initializeApp(initialChars, initialPacks) {
         }
 
         initializeFreshSetupState();
-
         const initialReportTargetElement = domElements['initial-report-target'];
         const coffinIconContainer = domElements['intro-line-1-heading'];
-
         if (coffinIconContainer && initialReportTargetElement) {
             const coffinIconSpan = coffinIconContainer.querySelector('.coffin-icon');
             if (coffinIconSpan) {
                 coffinIconSpan.style.cursor = 'pointer';
                 coffinIconSpan.setAttribute('title', 'Ver detalles del informe');
-
                 coffinIconSpan.addEventListener('click', () => {
                     if (initialReportTargetElement) {
                         initialReportTargetElement.scrollIntoView({ behavior: 'instant', block: 'start' });
@@ -1210,148 +1013,7 @@ function initializeApp(initialChars, initialPacks) {
                 });
             }
         }
-
     }catch(e){console.error("ASIGNADOR ERROR GRAL:",e,e.stack);const b=document.body;if(b){let d=document.getElementById('critical-error');if(!d){d=document.createElement('div');d.id='critical-error';d.style.cssText='display:block;position:fixed;bottom:5px;left:50%;transform:translateX(-50%);z-index:10000;padding:15px;width:90%;max-width:700px;text-align:center;background-color:maroon;color:white;font-size:12px;border-radius:8px;';b.appendChild(d);}d.innerHTML=`Error: ${e.message}. Revisa consola (F12).`;}}
 } // Fin de la función initializeApp
 
-
-// Código que se ejecuta fuera de initializeApp
-
-document.addEventListener('DOMContentLoaded', () => {
-    initializeApp(allCharacters_data, packs_data)
-    setupProgressiveFlow();
-});
-
-function runTypewriterOnElement(el, speed = 75) {
-  if (!el) return;
-  const fullText = el.textContent.trim();
-  el.textContent = '';
-
-  const textSpan = document.createElement('span');
-  const cursor = document.createElement('span');
-  cursor.className = 'typewriter-cursor';
-  el.appendChild(textSpan);
-  el.appendChild(cursor);
-
-  let index = 0;
-  (function typeNext() {
-    textSpan.textContent = fullText.slice(0, index + 1);
-    index++;
-    if (index < fullText.length) {
-      setTimeout(typeNext, speed);
-    } else {
-      cursor.classList.add('hide-typewriter-cursor');
-    }
-  })();
-}
-
-function applyTypewriterEffects() {
-  const elements = [
-    document.getElementById('typewriter-title'),
-    document.querySelector('label[for="clave"]')
-  ];
-  elements.forEach(el => runTypewriterOnElement(el));
-}
-
-function setupProgressiveFlow() {
-  const bloques = Array.from(document.querySelectorAll('#setup-section .bloque'));
-  if (bloques.length === 0) return;
-  bloques.forEach((bloq, idx) => {
-    bloq.classList.add('hidden-section');
-    bloq.classList.remove('visible-section');
-  });
-  const showBloque = num => {
-    const b = document.querySelector('.bloque-' + num);
-    if (b && b.classList.contains('hidden-section')) {
-      b.classList.remove('hidden-section');
-      b.classList.add('visible-section');
-      triggerGoldenGlow(b);
-    }
-  };
-
-  showBloque(2);
-
-  const dateInput = document.getElementById('event-date-input');
-  const hostInput = document.getElementById('host-name-input');
-  const honYes = document.getElementById('honoree-yes');
-  const honNo = document.getElementById('honoree-no');
-  const honChk = document.getElementById('has-honoree-checkbox');
-  const playerCountInput = document.getElementById('player-count');
-  const namesContainer = document.getElementById('player-names-grid-container');
-
-  if (dateInput) {
-    dateInput.addEventListener('change', () => {
-      if (dateInput.value) showBloque(3);
-    });
-  }
-  if (hostInput) {
-    hostInput.addEventListener('input', () => {
-      if (hostInput.value.trim().length > 0) showBloque(4);
-    });
-  }
-
-  const handleHonoreeChoice = hasHonoree => {
-    if (honChk) {
-      honChk.checked = hasHonoree;
-      honChk.dispatchEvent(new Event('change'));
-    }
-    showBloque(5);
-  };
-
-  if (honYes && honNo) {
-    honYes.addEventListener('click', () => handleHonoreeChoice(true));
-    honNo.addEventListener('click', () => handleHonoreeChoice(false));
-  } else if (honChk) {
-    honChk.addEventListener('change', () => showBloque(5));
-  }
-
-  if (playerCountInput) {
-    playerCountInput.addEventListener('input', () => {
-      const val = parseInt(playerCountInput.value);
-      const min = parseInt(playerCountInput.min);
-      const max = parseInt(playerCountInput.max);
-      if (!isNaN(val) && val >= min && val <= max) showBloque(6);
-    });
-  }
-
-  if (namesContainer) {
-    namesContainer.addEventListener('input', () => {
-      const total = parseInt(playerCountInput?.value || '0');
-      const filled = Array.from(namesContainer.querySelectorAll('input.player-name-box')).filter(el => el.value.trim()).length;
-      if (filled === total) showBloque(7);
-    });
-  }
-}
-
-window.addEventListener("load", applyTypewriterEffects);
-
-function validarClave() {
-  const clave = document.getElementById('clave')?.value?.trim().toLowerCase();
-  const intro = document.getElementById('intro-detective');
-  const error = document.getElementById('mensaje-error');
-  const reportTarget = document.getElementById('initial-report-target');
-
-  if (clave === 'cluedo') {
-    if(intro) {
-        intro.style.transition = "opacity 0.5s ease";
-        intro.style.opacity = "0";
-
-        setTimeout(() => {
-            intro.style.display = 'none';
-
-            if (reportTarget) {
-                reportTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
-                requestAnimationFrame(() => {
-                    triggerGoldenGlow(reportTarget);
-                });
-            } else {
-                window.scrollTo({ top: 0, behavior: 'instant' });
-            }
-        }, 500);
-    }
-  } else {
-    if(error) error.style.display = 'block';
-  }
-}
-
-// 👉👉 FIN BLOQUE 4: ACCIONES PRINCIPALES Y EXPORTACIÓN �👈
+export { initializeApp };
