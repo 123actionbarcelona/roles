@@ -648,26 +648,19 @@ function initializeApp(initialChars, initialPacks) {
                 if(d){
                     const txt = `¡Hola ${pA}!\n\nAquí tienes los detalles de tu sospechoso para el Cluedo en vivo “El Testamento de Mr. Collins”:\n\n🕵️ SOSPECHOSO: ${d.name}\n📜 DESCRIPCIÓN: ${d.description}\n\n🔗 Accede a tu ficha completa aquí: ${d.fichaLink||'N/A'}\n\n¡Recuerda que toda la información de la ficha es confidencial! 🤫`;
 
-                    if (navigator.share && navigator.canShare && navigator.canShare({ text: txt })) {
+                    const isiPhone = /iPhone/i.test(navigator.userAgent);
+                    if (isiPhone && navigator.share) {
                         try {
                             await navigator.share({
                                 title: `Sospechoso: ${d.name}`,
-                                text: txt,
+                                text: txt
                             });
                             showToastNotification('¡Detalles compartidos!', 'success');
                         } catch (error) {
                             console.error('Error al compartir:', error);
-                            if (error.name !== 'AbortError') {
-                                showToastNotification('Error al compartir. Texto copiado al portapapeles.', 'error');
-                                navigator.clipboard.writeText(txt).catch(err => console.error("Error al copiar al portapapeles:", err));
-                            } else {
-                                showToastNotification('Compartir cancelado.', 'info');
-                            }
                         }
                     } else {
-                        navigator.clipboard.writeText(txt)
-                            .then(()=>showToastNotification("Texto copiado al portapapeles.",'success'))
-                            .catch(()=>showToastNotification("Error al copiar texto.",'error'));
+                        openShareMenu(cB, txt, d.name);
                     }
                 }
             });}
@@ -745,6 +738,7 @@ function initializeApp(initialChars, initialPacks) {
 
         // --- INICIO: Lógica de Popovers ---
         let activePopoverElements = null;
+        let activeShareMenu = null;
 
         function adjustPopoverPosition(iconTriggerElement, popoverWrapper, popover, frame) {
             const iconContainer = iconTriggerElement.closest('.icono-info');
@@ -889,6 +883,47 @@ function initializeApp(initialChars, initialPacks) {
                 });
             }
         });
+
+        function closeActiveShareMenu() {
+            if (activeShareMenu) {
+                activeShareMenu.remove();
+                document.removeEventListener('click', handleShareMenuOutside);
+                activeShareMenu = null;
+            }
+        }
+
+        function handleShareMenuOutside(e) {
+            if (activeShareMenu && !activeShareMenu.contains(e.target) && e.target !== activeShareMenu.trigger) {
+                closeActiveShareMenu();
+            }
+        }
+
+        function openShareMenu(trigger, txt, name) {
+            closeActiveShareMenu();
+
+            const menu = document.createElement('div');
+            menu.className = 'share-menu';
+            menu.innerHTML = `
+                <a href="https://wa.me/?text=${encodeURIComponent(txt)}" target="_blank">🟢 WhatsApp</a>
+                <button type="button" class="share-copy-option">📋 Copiar al portapapeles</button>
+                <a href="mailto:?subject=${encodeURIComponent('Tu personaje en el Cluedo: ' + name)}&body=${encodeURIComponent(txt)}">✉️ Enviar por email</a>
+            `;
+            document.body.appendChild(menu);
+            const rect = trigger.getBoundingClientRect();
+            menu.style.left = rect.left + window.scrollX + 'px';
+            menu.style.top = rect.bottom + window.scrollY + 'px';
+
+            menu.querySelector('.share-copy-option').addEventListener('click', () => {
+                navigator.clipboard.writeText(txt)
+                    .then(() => showToastNotification('Texto copiado al portapapeles', 'success'))
+                    .catch(() => showToastNotification('Error al copiar texto', 'error'));
+                closeActiveShareMenu();
+            });
+
+            activeShareMenu = menu;
+            activeShareMenu.trigger = trigger;
+            setTimeout(() => document.addEventListener('click', handleShareMenuOutside));
+        }
         // --- FIN: Lógica de Popovers ---
 
 // 👉👉 FIN BLOQUE 3: RENDERIZADO DE UI Y COMPONENTES VISUALES 👈👈
