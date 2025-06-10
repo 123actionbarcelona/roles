@@ -102,6 +102,20 @@ function triggerGoldenGlow(element) {
     }, 2000);
 }
 
+function getFormattedEventDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr + 'T00:00:00');
+    return date.toLocaleDateString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+}
+
+function isDesktop() {
+    return !/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+}
+
 function initializeApp(initialChars, initialPacks) {
     const packs = initialPacks;
 
@@ -1115,8 +1129,7 @@ function initializeApp(initialChars, initialPacks) {
                 doc.setTextColor(colors.dark);
 
                 if (eventDateValue) {
-                    const dateObj = new Date(eventDateValue + 'T00:00:00');
-                    const formattedDate = dateObj.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+                    const formattedDate = getFormattedEventDate(eventDateValue);
                     yPos = drawInfoLine(yPos, "Fecha:", formattedDate);
                 }
 
@@ -1170,21 +1183,23 @@ function initializeApp(initialChars, initialPacks) {
                 }
 
                 const pdfBlob = doc.output('blob');
-                const pdfFile = new File([pdfBlob], "panel_detectivesco_final.pdf", { type: "application/pdf" });
+                const formattedDate = getFormattedEventDate(eventDateValue);
+                const pdfName = `Panel de sospechos - ${formattedDate}.pdf`;
+                const pdfFile = new File([pdfBlob], pdfName, { type: "application/pdf" });
 
                 showToastNotification('PDF artístico generado.', 'success', 3000);
 
-                if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+                if (!isDesktop() && navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
                     try {
                         await navigator.share({ files: [pdfFile], title: 'Panel Detectivesco - Intriga', text: 'Aquí está el panel de asignaciones del juego de intriga.' });
                     } catch (error) {
                         if (error.name !== 'AbortError') {
                             showToastNotification('Error al compartir. Iniciando descarga...', 'error');
-                            doc.save("panel_detectivesco_final.pdf");
+                            doc.save(pdfName);
                         }
                     }
                 } else {
-                    doc.save("panel_detectivesco_final.pdf");
+                    doc.save(pdfName);
                 }
             });
         }
