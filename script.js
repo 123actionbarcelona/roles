@@ -168,6 +168,12 @@ function initializeApp(initialChars, initialPacks) {
         let honoreeNames = [];
         let eventDateValue = "";
 
+        function getFormattedEventDate() {
+            if (!eventDateValue) return "";
+            const dateObj = new Date(eventDateValue + 'T00:00:00');
+            return dateObj.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
         // La función addHonoreeInput se definirá en el Bloque 3, pero se llama desde aquí.
         if (domElements['has-honoree-checkbox']) {
             domElements['has-honoree-checkbox'].addEventListener('change', function() {
@@ -924,6 +930,42 @@ function initializeApp(initialChars, initialPacks) {
             activeShareMenu.trigger = trigger;
             setTimeout(() => document.addEventListener('click', handleShareMenuOutside));
         }
+
+        function openPdfShareMenu(trigger, pdfFile) {
+            closeActiveShareMenu();
+
+            const url = URL.createObjectURL(pdfFile);
+            const shareText = `Aquí está el panel de asignaciones para nuestro cluedo en vivo${eventDateValue ? ' (' + getFormattedEventDate() + ')' : ''}.`;
+
+            const menu = document.createElement('div');
+            menu.className = 'share-menu';
+            menu.innerHTML = `
+                <a href="https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}" target="_blank">🟢 WhatsApp</a>
+                <button type="button" class="share-copy-option">📋 Copiar al portapapeles</button>
+                <a href="mailto:?subject=${encodeURIComponent('Panel Detectivesco')}&body=${encodeURIComponent(shareText)}">✉️ Enviar por email</a>
+                <a href="${url}" download="${pdfFile.name}" class="pdf-download-option">💾 Guardar PDF</a>
+            `;
+            document.body.appendChild(menu);
+            const rect = trigger.getBoundingClientRect();
+            menu.style.left = rect.left + window.scrollX + 'px';
+            menu.style.top = rect.bottom + window.scrollY + 'px';
+
+            menu.querySelector('.share-copy-option').addEventListener('click', () => {
+                navigator.clipboard.writeText(shareText)
+                    .then(() => showToastNotification('Texto copiado al portapapeles', 'success'))
+                    .catch(() => showToastNotification('Error al copiar texto', 'error'));
+                closeActiveShareMenu();
+            });
+
+            menu.querySelector('.pdf-download-option').addEventListener('click', () => {
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                closeActiveShareMenu();
+            });
+
+            activeShareMenu = menu;
+            activeShareMenu.trigger = trigger;
+            setTimeout(() => document.addEventListener('click', handleShareMenuOutside));
+        }
         // --- FIN: Lógica de Popovers ---
 
 // 👉👉 FIN BLOQUE 3: RENDERIZADO DE UI Y COMPONENTES VISUALES 👈👈
@@ -1174,17 +1216,19 @@ function initializeApp(initialChars, initialPacks) {
 
                 showToastNotification('PDF artístico generado.', 'success', 3000);
 
-                if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+                const isiPhone = /iPhone/i.test(navigator.userAgent);
+                const shareText = `Aquí está el panel de asignaciones para nuestro cluedo en vivo${eventDateValue ? ' (' + getFormattedEventDate() + ')' : ''}.`;
+
+                if (isiPhone && navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
                     try {
-                        await navigator.share({ files: [pdfFile], title: 'Panel Detectivesco - Intriga', text: 'Aquí está el panel de asignaciones del juego de intriga.' });
+                        await navigator.share({ files: [pdfFile], title: 'Panel Detectivesco - Intriga', text: shareText });
                     } catch (error) {
                         if (error.name !== 'AbortError') {
-                            showToastNotification('Error al compartir. Iniciando descarga...', 'error');
-                            doc.save("panel_detectivesco_final.pdf");
+                            openPdfShareMenu(domElements['print-dashboard-btn'], pdfFile);
                         }
                     }
                 } else {
-                    doc.save("panel_detectivesco_final.pdf");
+                    openPdfShareMenu(domElements['print-dashboard-btn'], pdfFile);
                 }
             });
         }
