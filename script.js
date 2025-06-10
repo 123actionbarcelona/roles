@@ -924,6 +924,31 @@ function initializeApp(initialChars, initialPacks) {
             activeShareMenu.trigger = trigger;
             setTimeout(() => document.addEventListener('click', handleShareMenuOutside));
         }
+
+        function openPdfShareMenu(trigger, pdfFile) {
+            closeActiveShareMenu();
+
+            const url = URL.createObjectURL(pdfFile);
+            const menu = document.createElement('div');
+            menu.className = 'share-menu';
+            menu.innerHTML = `
+                <a href="${url}" download="${pdfFile.name}" class="pdf-download-option">💾 Guardar PDF</a>
+                <a href="mailto:?subject=${encodeURIComponent('Panel Detectivesco')}">✉️ Enviar por email</a>
+            `;
+            document.body.appendChild(menu);
+            const rect = trigger.getBoundingClientRect();
+            menu.style.left = rect.left + window.scrollX + 'px';
+            menu.style.top = rect.bottom + window.scrollY + 'px';
+
+            menu.querySelector('.pdf-download-option').addEventListener('click', () => {
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                closeActiveShareMenu();
+            });
+
+            activeShareMenu = menu;
+            activeShareMenu.trigger = trigger;
+            setTimeout(() => document.addEventListener('click', handleShareMenuOutside));
+        }
         // --- FIN: Lógica de Popovers ---
 
 // 👉👉 FIN BLOQUE 3: RENDERIZADO DE UI Y COMPONENTES VISUALES 👈👈
@@ -1174,17 +1199,18 @@ function initializeApp(initialChars, initialPacks) {
 
                 showToastNotification('PDF artístico generado.', 'success', 3000);
 
-                if (navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+                const isiPhone = /iPhone/i.test(navigator.userAgent);
+
+                if (isiPhone && navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
                     try {
                         await navigator.share({ files: [pdfFile], title: 'Panel Detectivesco - Intriga', text: 'Aquí está el panel de asignaciones del juego de intriga.' });
                     } catch (error) {
                         if (error.name !== 'AbortError') {
-                            showToastNotification('Error al compartir. Iniciando descarga...', 'error');
-                            doc.save("panel_detectivesco_final.pdf");
+                            openPdfShareMenu(domElements['print-dashboard-btn'], pdfFile);
                         }
                     }
                 } else {
-                    doc.save("panel_detectivesco_final.pdf");
+                    openPdfShareMenu(domElements['print-dashboard-btn'], pdfFile);
                 }
             });
         }
