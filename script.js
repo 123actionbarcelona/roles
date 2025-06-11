@@ -92,7 +92,6 @@ function triggerGoldenGlow(element) {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-        console.log("Movimiento reducido preferido, omitiendo animación de brillo.");
         return;
     }
 
