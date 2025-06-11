@@ -1051,6 +1051,7 @@ function initializeApp(initialChars, initialPacks) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+
         // Se sobreescribe el listener del botón de imprimir para añadir la lógica completa
         if (domElements['print-dashboard-btn']) {
             domElements['print-dashboard-btn'].addEventListener('click', async () => {
@@ -1064,6 +1065,7 @@ function initializeApp(initialChars, initialPacks) {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
 
+                // === CÓDIGO DE GENERACIÓN DEL PDF (mantener todo igual) ===
                 const page = { width: doc.internal.pageSize.getWidth(), height: doc.internal.pageSize.getHeight() };
                 const margin = 10;
                 const columnMargin = 5;
@@ -1097,6 +1099,7 @@ function initializeApp(initialChars, initialPacks) {
 
                 const totalCards = sortedCharacters.length;
 
+                // Dibujar el PDF
                 doc.setDrawColor(colors.gold);
                 doc.setLineWidth(1);
                 doc.rect(margin / 2, margin / 2, page.width - margin, page.height - margin);
@@ -1182,16 +1185,88 @@ function initializeApp(initialChars, initialPacks) {
                     doc.text(cleanPlayerName, textX, cardY + 18, { align: 'center' });
                 }
 
+                // === FIN DEL CÓDIGO DE GENERACIÓN DEL PDF ===
+
+                // Generar el PDF
                 const pdfBlob = doc.output('blob');
                 const formattedDate = getFormattedEventDate(eventDateValue);
                 const pdfName = `Panel de sospechos - ${formattedDate}.pdf`;
                 const pdfFile = new File([pdfBlob], pdfName, { type: "application/pdf" });
 
-                showToastNotification('PDF artístico generado.', 'success', 3000);
+                // Obtener el email del campo (si existe)
+                const recipientEmailInput = document.getElementById('recipient-email-input');
+                const recipientEmail = recipientEmailInput ? recipientEmailInput.value.trim() : '123actionbcn@gmail.com';
 
+                // === ENVIAR A N8N VIA WEBHOOK ===
+                if (recipientEmail) {
+                    try {
+                        showToastNotification('Enviando panel por email...', 'info');
+
+                        // Generar el HTML bonito para el email
+                        const beautifulHTML = generateBeautifulEmailHTML(
+                            sortedCharacters,
+                            formattedDate,
+                            hostName,
+                            honoreeNames,
+                            totalCards,
+                            assignedPlayerMap
+                        );
+
+                        // Preparar los datos para el webhook
+                        const webhookData = {
+                            // Información del destinatario
+                            recipientEmail: recipientEmail,
+                            
+                            // Información para el subject del email
+                            eventDate: formattedDate,
+                            hostName: hostName || 'Organizador',
+                            
+                            // HTML completo del email
+                            emailHTML: beautifulHTML,
+                            
+                            // Información adicional (por si la necesitas en n8n)
+                            totalPlayers: totalCards,
+                            timestamp: new Date().toISOString(),
+                            
+                            // Asignaciones detalladas (por si quieres procesarlas en n8n)
+                            assignments: sortedCharacters.map(char => ({
+                                character: char.name,
+                                player: assignedPlayerMap.get(char.name) || 'Sin asignar',
+                                interpretationLevel: char.interpretationLevel,
+                                gender: char.gender
+                            }))
+                        };
+
+                        // Enviar al webhook de n8n
+                        const response = await fetch('https://n8n.srv815746.hstgr.cloud/webhook/panel-detectivesco', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(webhookData)
+                        });
+
+                        if (response.ok) {
+                            showToastNotification('✅ Panel enviado por email exitosamente', 'success', 4000);
+                        } else {
+                            throw new Error(`Error del servidor: ${response.status}`);
+                        }
+                    } catch (error) {
+                        console.error('Error enviando webhook:', error);
+                        showToastNotification('Error al enviar por email, pero puedes descargar el PDF', 'error', 5000);
+                    }
+                }
+
+                showToastNotification('PDF generado correctamente', 'success', 3000);
+
+                // Continuar con la descarga/compartir normal
                 if (!isDesktop() && navigator.share && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
                     try {
-                        await navigator.share({ files: [pdfFile], title: 'Panel Detectivesco - Intriga', text: 'Aquí está el panel de asignaciones del juego de intriga.' });
+                        await navigator.share({ 
+                            files: [pdfFile], 
+                            title: 'Panel Detectivesco - Intriga', 
+                            text: 'Aquí está el panel de asignaciones del juego de intriga.' 
+                        });
                     } catch (error) {
                         if (error.name !== 'AbortError') {
                             showToastNotification('Error al compartir. Iniciando descarga...', 'error');
@@ -1203,7 +1278,6 @@ function initializeApp(initialChars, initialPacks) {
                 }
             });
         }
-
         initializeFreshSetupState();
 
         const initialReportTargetElement = domElements['initial-report-target'];
@@ -1370,3 +1444,276 @@ function validarClave() {
 }
 
 // 👉👉 FIN BLOQUE 4: ACCIONES PRINCIPALES Y EXPORTACIÓN �👈
+function generateBeautifulEmailHTML(sortedCharacters, formattedDate, hostName, honoreeNames, totalCards, assignedPlayerMap) {
+    
+    // Generar las tarjetas de personajes
+    let characterCards = '';
+    sortedCharacters.forEach((char, index) => {
+        const player = assignedPlayerMap.get(char.name) || 'Sin asignar';
+        const cleanPlayer = player.replace(/🎩|🌟/g, '').trim();
+        const playerRole = player.includes('🎩') ? ' (Anfitrión)' : player.includes('🌟') ? ' (Homenajeado)' : '';
+        const interpretationText = getGenderedInterpretationText(char.interpretationLevel, char.gender);
+        
+        // Emojis para personalidad
+        const personalityEmoji = {
+            'Extrovertido': '🔥',
+            'Extrovertida': '🔥',
+            'Introvertido': '🙈',
+            'Introvertida': '🙈',
+            'Camaleónico': '🎭',
+            'Camaleónica': '🎭'
+        }[interpretationText] || '🎭';
+        
+        characterCards += `
+            <div style="
+                background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+                border: 2px solid #c0a062;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 15px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+                position: relative;
+                overflow: hidden;
+            ">
+                <!-- Decoración Art Déco en esquina -->
+                <div style="
+                    position: absolute;
+                    top: -20px;
+                    right: -20px;
+                    width: 60px;
+                    height: 60px;
+                    background: #c0a062;
+                    transform: rotate(45deg);
+                    opacity: 0.2;
+                "></div>
+                
+                <!-- Número de orden -->
+                <div style="
+                    position: absolute;
+                    top: 10px;
+                    left: 10px;
+                    width: 30px;
+                    height: 30px;
+                    background: #c0a062;
+                    color: #1a1a1a;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 14px;
+                ">${index + 1}</div>
+                
+                <!-- Contenido de la tarjeta -->
+                <div style="margin-left: 40px;">
+                    <h3 style="
+                        color: #e8d8b0;
+                        font-size: 22px;
+                        margin: 0 0 10px 0;
+                        font-family: Georgia, serif;
+                        border-bottom: 1px solid #c0a062;
+                        padding-bottom: 10px;
+                    ">${char.name}</h3>
+                    
+                    <div style="color: #f5e8d5; font-size: 16px; line-height: 1.6;">
+                        <p style="margin: 5px 0;">
+                            <strong style="color: #c0a062;">👤 Jugador:</strong> 
+                            <span style="font-size: 18px;">${cleanPlayer}${playerRole}</span>
+                        </p>
+                        <p style="margin: 5px 0;">
+                            <strong style="color: #c0a062;">🎭 Personalidad:</strong> 
+                            <span style="
+                                background: #c0a062;
+                                color: #1a1a1a;
+                                padding: 2px 8px;
+                                border-radius: 4px;
+                                font-weight: bold;
+                                display: inline-block;
+                                margin-left: 5px;
+                            ">${personalityEmoji} ${interpretationText.toUpperCase()}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    // HTML completo del email
+    const emailHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Detectivesco - El Testamento de Mr. Collins</title>
+</head>
+<body style="
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;
+    background-color: #0a0a0a;
+    color: #f5e8d5;
+">
+    <!-- Contenedor principal -->
+    <div style="
+        max-width: 650px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #1a1a1a 0%, #0a0a0a 100%);
+        border-left: 1px solid #c0a062;
+        border-right: 1px solid #c0a062;
+    ">
+        <!-- Header Art Déco -->
+        <div style="
+            background: linear-gradient(135deg, #8c703c 0%, #c0a062 50%, #8c703c 100%);
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        ">
+            <!-- Patrón decorativo -->
+            <div style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0.1;
+                background-image: repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(0,0,0,0.1) 10px,
+                    rgba(0,0,0,0.1) 20px
+                );
+            "></div>
+            
+            <h1 style="
+                color: #1a1a1a;
+                font-size: 36px;
+                margin: 0;
+                font-family: Georgia, serif;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                position: relative;
+                z-index: 1;
+            ">🕵️ PANEL DETECTIVESCO 🕵️</h1>
+            
+            <div style="
+                background: #1a1a1a;
+                color: #c0a062;
+                padding: 10px 30px;
+                display: inline-block;
+                margin-top: 15px;
+                border-radius: 20px;
+                font-size: 18px;
+                font-weight: bold;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+                position: relative;
+                z-index: 1;
+            ">El Testamento de Mr. Collins</div>
+        </div>
+        
+        <!-- Información del evento -->
+        <div style="
+            background: #2a2a2a;
+            margin: 20px;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #c0a062;
+            text-align: center;
+        ">
+            <h2 style="
+                color: #e8d8b0;
+                font-size: 24px;
+                margin: 0 0 20px 0;
+                font-family: Georgia, serif;
+            ">⚰️ Detalles del Caso ⚰️</h2>
+            
+            <div style="
+                display: inline-block;
+                text-align: left;
+                font-size: 16px;
+                line-height: 1.8;
+            ">
+                <p style="margin: 8px 0;">
+                    <strong style="color: #c0a062;">📅 Fecha del evento:</strong> 
+                    <span style="color: #f5e8d5; font-size: 18px;">${formattedDate}</span>
+                </p>
+                ${hostName ? `
+                <p style="margin: 8px 0;">
+                    <strong style="color: #c0a062;">🎩 Anfitrión:</strong> 
+                    <span style="color: #f5e8d5; font-size: 18px;">${hostName}</span>
+                </p>` : ''}
+                ${honoreeNames.length > 0 ? `
+                <p style="margin: 8px 0;">
+                    <strong style="color: #c0a062;">🌟 Homenajeado(s):</strong> 
+                    <span style="color: #f5e8d5; font-size: 18px;">${honoreeNames.join(', ')}</span>
+                </p>` : ''}
+                <p style="margin: 8px 0;">
+                    <strong style="color: #c0a062;">👥 Total de sospechosos:</strong> 
+                    <span style="color: #f5e8d5; font-size: 18px;">${totalCards}</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Título de asignaciones -->
+        <div style="
+            text-align: center;
+            margin: 30px 20px 20px 20px;
+        ">
+            <h2 style="
+                color: #e8d8b0;
+                font-size: 28px;
+                font-family: Georgia, serif;
+                margin: 0;
+                position: relative;
+                display: inline-block;
+            ">
+                <span style="
+                    display: inline-block;
+                    padding: 0 40px;
+                ">📋 Asignaciones Secretas 📋</span>
+                <div style="
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: -10px;
+                    height: 2px;
+                    background: linear-gradient(to right, transparent, #c0a062, transparent);
+                "></div>
+            </h2>
+        </div>
+        
+        <!-- Tarjetas de personajes -->
+        <div style="padding: 20px;">
+            ${characterCards}
+        </div>
+        
+        <!-- Footer -->
+        <div style="
+            background: linear-gradient(135deg, #8c703c 0%, #c0a062 50%, #8c703c 100%);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 30px;
+        ">
+            <p style="
+                color: #1a1a1a;
+                font-size: 14px;
+                margin: 0 0 10px 0;
+                font-weight: bold;
+            ">🔍 CONFIDENCIAL - NO COMPARTIR 🔍</p>
+            
+            <p style="
+                color: #1a1a1a;
+                font-size: 12px;
+                margin: 0;
+                opacity: 0.8;
+            ">© 2024 123 Action Barcelona<br>
+            Sistema de Asignación de Sospechosos v1.0</p>
+        </div>
+    </div>
+</body>
+</html>
+    `;
+    
+    return emailHTML;
+}
