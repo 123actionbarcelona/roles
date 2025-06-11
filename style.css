@@ -93,10 +93,18 @@
 
 html {
     scroll-behavior: smooth;
-    background: url('Fotos_Personajes/fondo_victoriano.WEBP') repeat fixed;
+    background-image: url('Fotos_Personajes/fondo_victoriano.WEBP');
+    background-repeat: repeat;
     background-size: auto;
+    background-attachment: fixed;
     background-color: #1a1a1a;
     background-blend-mode: multiply;
+}
+
+@media (max-width: 767px) {
+    html {
+        background-attachment: scroll;
+    }
 }
 
 body {
