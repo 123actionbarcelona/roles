@@ -1582,3 +1582,215 @@ button .fas, button .fab { margin-right: 8px; }
 }
 
 /* 👉👉 FIN BLOQUE 4: ESTILOS DE LA INTRO, ACCIONES Y RESPONSIVIDAD 👈👈 */
+/* ============================================= */
+/* MEJORAS DE VISIBILIDAD DE FECHA Y PADDING    */
+/* ============================================= */
+
+/* 1. MEJORAR CONTRASTE Y LEGIBILIDAD DE LA FECHA */
+#setup-section input[type="date"].player-name-box,
+#event-date-input {
+    color: #2c1f1b !important;
+    font-weight: 600 !important;
+    font-size: 1.1em !important;
+    background-color: #ffffff !important;
+    border: 2px solid var(--color-gold-medium) !important;
+    box-shadow: var(--box-shadow-inset), 0 2px 4px rgba(0,0,0,0.1), inset 0 1px 1px rgba(255,255,255,0.8) !important;
+    padding: 14px 18px !important;
+}
+
+:root.dark-mode #setup-section input[type="date"].player-name-box,
+:root.dark-mode #event-date-input {
+    background-color: #f8f5e8 !important;
+    color: #2c1f1b !important;
+    border-color: var(--color-gold-light) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.9) !important;
+}
+
+#setup-section input[type="date"].player-name-box:focus,
+#event-date-input:focus {
+    border-color: var(--color-gold-dark) !important;
+    box-shadow: 0 0 0 3px rgba(140, 96, 60, .45), 0 2px 6px rgba(0,0,0,0.15), inset 0 1px 2px rgba(255,255,255,0.9) !important;
+    background-color: #fffef9 !important;
+}
+
+:root.dark-mode #setup-section input[type="date"].player-name-box:focus,
+:root.dark-mode #event-date-input:focus {
+    background-color: #fffef9 !important;
+    border-color: var(--color-gold-dark) !important;
+}
+
+/* ============================================= */
+/* 2. AUMENTAR PADDING LATERAL EN BLOQUES       */
+/* ============================================= */
+
+.bloque-2,
+.bloque-3,
+.bloque-4,
+.bloque-5,
+.bloque-6,
+.bloque-7 {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.setup-control-group {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 20px !important;
+}
+
+.bloque-2 .setup-control-group {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+.bloque-4 {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+.honoree-choice-container {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    margin-top: 10px !important;
+    margin-bottom: 15px !important;
+}
+
+#honorees-container {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    margin-top: 15px !important;
+}
+
+.bloque-5 {
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+}
+
+.player-count-wrapper {
+    padding: 10px 15px !important;
+    justify-content: center !important;
+}
+
+#player-names-grid-container {
+    padding: 15px 20px !important;
+    margin-top: 15px !important;
+}
+
+/* ============================================= */
+/* 3. MEJORAS ADICIONALES DE ESPACIADO          */
+/* ============================================= */
+
+#setup-section label {
+    margin-bottom: 15px !important;
+    padding-left: 5px !important;
+}
+
+.honoree-choice-btn {
+    margin: 5px 8px !important;
+    padding: 8px 20px !important;
+}
+
+#start-assignment {
+    margin: 20px 15px !important;
+    padding: 15px 35px !important;
+}
+
+/* ============================================= */
+/* 4. RESPONSIVE: AJUSTES PARA MÓVILES          */
+/* ============================================= */
+
+@media (max-width: 767px) {
+    .bloque-2, .bloque-3, .bloque-4, .bloque-5, .bloque-6, .bloque-7 {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-top: 18px !important;
+        padding-bottom: 18px !important;
+    }
+
+    .setup-control-group {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    #player-names-grid-container {
+        padding: 12px 15px !important;
+    }
+
+    #event-date-input {
+        font-size: 1.15em !important;
+        padding: 16px 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .bloque-2, .bloque-3, .bloque-4, .bloque-5, .bloque-6, .bloque-7 {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+    }
+
+    .setup-control-group {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    #player-names-grid-container {
+        padding: 10px 12px !important;
+    }
+}
+
+/* ============================================= */
+/* 5. MEJORAS ESPECÍFICAS PARA INPUTS           */
+/* ============================================= */
+
+input.player-name-box:not([type="date"]) {
+    padding: 14px 20px !important;
+}
+
+#host-name-input {
+    padding: 16px 22px !important;
+    font-weight: 600 !important;
+    background-color: #fffef9 !important;
+    border: 2px solid var(--color-gold-medium) !important;
+}
+
+:root.dark-mode #host-name-input {
+    background-color: #f8f5e8 !important;
+    color: #2c1f1b !important;
+}
+
+.honoree-name-input {
+    padding: 14px 20px !important;
+    font-weight: 500 !important;
+}
+
+/* ============================================= */
+/* 6. ALTERNATIVA: CLASE PARA APLICAR MANUAL     */
+/* ============================================= */
+
+.extra-padding {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.date-input-enhanced {
+    color: #2c1f1b !important;
+    font-weight: 600 !important;
+    font-size: 1.1em !important;
+    background-color: #ffffff !important;
+    border: 2px solid var(--color-gold-medium) !important;
+    padding: 14px 18px !important;
+    box-shadow: var(--box-shadow-inset), 0 2px 4px rgba(0,0,0,0.1), inset 0 1px 1px rgba(255,255,255,0.8) !important;
+}
