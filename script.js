@@ -116,6 +116,64 @@ function isDesktop() {
     return !/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 }
 
+function generateBeautifulEmailHTML() {
+    const colors = { dark: '#2c1f1b', gold: '#8c703c', light_gold: '#c0a062', bg: '#faf3e0' };
+
+    const hostPlayerName = hostName ? hostName + ' 🎩' : null;
+    const honoreePlayerNames = honoreeNames.map(name => name + ' 🌟');
+
+    const sortedCharacters = [...currentCharacters].sort((a, b) => {
+        const playerA = assignedPlayerMap.get(a.name);
+        const playerB = assignedPlayerMap.get(b.name);
+        const isAHonoree = honoreePlayerNames.includes(playerA);
+        const isBHonoree = honoreePlayerNames.includes(playerB);
+        const isAHost = playerA === hostPlayerName;
+        const isBHost = playerB === hostPlayerName;
+        if (isAHonoree && !isBHonoree) return -1;
+        if (!isAHonoree && isBHonoree) return 1;
+        if (isAHost && !isBHost && !isAHonoree && !isBHonoree) return -1;
+        if (!isAHost && isBHost && !isAHonoree && !isBHonoree) return 1;
+        if (isAHonoree && isBHost) return -1;
+        if (isAHost && isBHonoree) return 1;
+        return 0;
+    });
+
+    const totalCards = sortedCharacters.length;
+    const formattedDate = getFormattedEventDate(eventDateValue);
+
+    let html = `<div style="background:${colors.bg};padding:8px;border:1px solid ${colors.gold};">`;
+    html += `<div style="border:1px solid ${colors.dark};padding:16px;font-family:Lora,Helvetica,serif;color:${colors.dark};">`;
+    html += `<h2 style="margin-top:0;margin-bottom:8px;text-align:center;font-family:'Playfair Display',Helvetica,serif;font-size:20px;">Panel Detectivesco</h2>`;
+
+    if (formattedDate) {
+        html += `<div style="font-family:Lora,Helvetica,serif;font-weight:bold;font-size:12px;margin-bottom:4px;">Fecha: ${formattedDate}</div>`;
+    }
+    html += `<div style="font-family:Lora,Helvetica,serif;font-weight:bold;font-size:12px;margin-bottom:4px;">Nº de Sospechosos: ${totalCards}</div>`;
+    if (hostName) {
+        html += `<div style="font-family:Lora,Helvetica,serif;font-weight:bold;font-size:12px;margin-bottom:4px;">Anfitrión: ${hostName}</div>`;
+    }
+    if (honoreeNames && honoreeNames.length > 0) {
+        html += `<div style="font-family:Lora,Helvetica,serif;font-weight:bold;font-size:12px;margin-bottom:4px;">Homenajeado/a(s): ${honoreeNames.join(', ')}</div>`;
+    }
+
+    html += `<div style="height:1px;background:${colors.light_gold};margin:8px 0;"></div>`;
+
+    html += `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">`;
+    sortedCharacters.forEach(char => {
+        const playerName = assignedPlayerMap.get(char.name) || 'S/A';
+        const cleanPlayerName = playerName.replace(/🎩|🌟/g, '').trim();
+        html += `<div style="background:${colors.bg};border:1px solid ${colors.light_gold};border-radius:4px;padding:4px;text-align:center;">`;
+        html += `<div style="font-family:'Special Elite','Courier',monospace;font-size:11px;color:${colors.dark};text-transform:uppercase;">${char.name}</div>`;
+        html += `<div style="height:1px;background:${colors.light_gold};margin:2px 0;"></div>`;
+        html += `<div style="font-family:Lora,Helvetica,serif;font-weight:bold;color:${colors.gold};font-size:12px;">${cleanPlayerName}</div>`;
+        html += `</div>`;
+    });
+    html += `</div>`; // grid
+    html += `</div></div>`;
+
+    return html;
+}
+
 function initializeApp(initialChars, initialPacks) {
     const packs = initialPacks;
 
