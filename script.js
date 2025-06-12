@@ -1214,27 +1214,23 @@ function initializeApp(initialChars, initialPacks) {
 
                         // Preparar los datos para el webhook
                         const webhookData = {
-                            // Información del destinatario
-                            recipientEmail: recipientEmail,
-                            
-                            // Información para el subject del email
-                            eventDate: formattedDate,
-                            hostName: hostName || 'Organizador',
-                            
-                            // HTML completo del email
-                            emailHTML: beautifulHTML,
-                            
-                            // Información adicional (por si la necesitas en n8n)
-                            totalPlayers: totalCards,
-                            timestamp: new Date().toISOString(),
-                            
-                            // Asignaciones detalladas (por si quieres procesarlas en n8n)
-                            assignments: sortedCharacters.map(char => ({
-                                character: char.name,
-                                player: assignedPlayerMap.get(char.name) || 'Sin asignar',
-                                interpretationLevel: char.interpretationLevel,
-                                gender: char.gender
-                            }))
+                            to: recipientEmail,
+                            subject: `Panel Detectivesco - ${formattedDate}`,
+                            data: {
+                                event: {
+                                    date: formattedDate,
+                                    host: hostName || 'Organizador',
+                                    honorees: honoreeNames,
+                                    totalPlayers: totalCards
+                                },
+                                assignments: sortedCharacters.map(char => ({
+                                    character: char.name,
+                                    player: assignedPlayerMap.get(char.name) || 'Sin asignar',
+                                    personality: getGenderedInterpretationText(char.interpretationLevel, char.gender).toUpperCase()
+                                })),
+                                emailHTML: beautifulHTML
+                            },
+                            timestamp: new Date().toISOString()
                         };
 
                         // Enviar al webhook de n8n
